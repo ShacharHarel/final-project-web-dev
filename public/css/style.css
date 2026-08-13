@@ -100,3 +100,19 @@ a {
 #cancel-edit-button {
     background-color: #555555;
 }
+
+.search-section {
+    margin-bottom: 40px;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+#search-form input,
+#search-form button {
+    padding: 10px;
+    font: inherit;
+}

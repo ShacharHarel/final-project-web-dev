@@ -1,14 +1,21 @@
-async function loadContents() {
+async function loadContents(url = '/api/contents') {
     const message = document.getElementById('message');
     const contentList = document.getElementById('content-list');
 
     try {
         contentList.innerHTML = '';
-        const response = await fetch('/api/contents');
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error();
+        }
+
         const contents = await response.json();
 
         if (contents.length === 0) {
-            message.textContent = 'עדיין אין תכנים בקטלוג.';
+            message.textContent = url.includes('/search')
+                ? 'לא נמצאו תכנים מתאימים.'
+                : 'עדיין אין תכנים בקטלוג.';
             return;
         }
 
@@ -70,6 +77,9 @@ async function loadContents() {
 }
 
 const contentForm = document.getElementById('content-form');
+const searchForm = document.getElementById('search-form');
+const searchTitle = document.getElementById('search-title');
+const clearSearchButton = document.getElementById('clear-search-button');
 const formTitle = document.getElementById('form-title');
 const submitButton = document.getElementById('submit-button');
 const cancelEditButton = document.getElementById('cancel-edit-button');
@@ -102,6 +112,20 @@ function stopEditing() {
 }
 
 cancelEditButton.addEventListener('click', stopEditing);
+
+searchForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const title = searchTitle.value.trim();
+
+    if (title) {
+        loadContents(`/api/contents/search?title=${encodeURIComponent(title)}`);
+    }
+});
+
+clearSearchButton.addEventListener('click', () => {
+    searchForm.reset();
+    loadContents();
+});
 
 contentForm.addEventListener('submit', async event => {
     event.preventDefault();
