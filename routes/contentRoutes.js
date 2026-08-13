@@ -6,13 +6,14 @@ const {
     updateContent,
     deleteContent
 } = require('../controllers/contentController');
+const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 router.get('/', getAllContents);
 router.get('/search', searchContents);
-router.post('/', createContent);
-router.put('/:id', updateContent);
-router.delete('/:id', deleteContent);
+router.post('/', requireAdmin, createContent);
+router.put('/:id', requireAdmin, updateContent);
+router.delete('/:id', requireAdmin, deleteContent);
 
 module.exports = router;

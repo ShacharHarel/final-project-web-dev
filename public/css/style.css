@@ -116,3 +116,35 @@ a {
     padding: 10px;
     font: inherit;
 }
+
+.home-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.auth-section {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.auth-form {
+    display: grid;
+    gap: 12px;
+}
+
+.auth-form input,
+.auth-form button,
+#logout-button {
+    padding: 12px;
+    font: inherit;
+}
+
+.auth-form button,
+#logout-button {
+    color: #ffffff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}

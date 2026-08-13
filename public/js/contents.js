@@ -68,7 +68,12 @@ async function loadContents(url = '/api/contents') {
                 }
             });
 
-            card.append(image, title, details, editButton, deleteButton);
+            card.append(image, title, details);
+
+            if (currentUserRole === 'admin') {
+                card.append(editButton, deleteButton);
+            }
+
             contentList.appendChild(card);
         });
     } catch (error) {
@@ -77,6 +82,7 @@ async function loadContents(url = '/api/contents') {
 }
 
 const contentForm = document.getElementById('content-form');
+const contentManagement = document.getElementById('content-management');
 const searchForm = document.getElementById('search-form');
 const searchTitle = document.getElementById('search-title');
 const clearSearchButton = document.getElementById('clear-search-button');
@@ -84,6 +90,17 @@ const formTitle = document.getElementById('form-title');
 const submitButton = document.getElementById('submit-button');
 const cancelEditButton = document.getElementById('cancel-edit-button');
 let editingContentId = null;
+let currentUserRole = null;
+
+async function loadCurrentUser() {
+    const response = await fetch('/api/auth/me');
+
+    if (response.ok) {
+        const user = await response.json();
+        currentUserRole = user.role;
+        contentManagement.hidden = user.role !== 'admin';
+    }
+}
 
 function startEditing(content) {
     editingContentId = content._id;
@@ -168,4 +185,4 @@ contentForm.addEventListener('submit', async event => {
     }
 });
 
-loadContents();
+loadCurrentUser().finally(loadContents);
