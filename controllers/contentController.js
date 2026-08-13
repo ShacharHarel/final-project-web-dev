@@ -9,6 +9,22 @@ async function getAllContents(req, res) {
     }
 }
 
+async function searchContents(req, res) {
+    try {
+        if (!req.query.title) {
+            return res.status(400).json({ message: 'Title is required' });
+        }
+
+        const contents = await Content.find({
+            title: { $regex: req.query.title, $options: 'i' }
+        });
+
+        res.json(contents);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to search contents' });
+    }
+}
+
 async function createContent(req, res) {
     try {
         const content = new Content(req.body);
@@ -53,6 +69,7 @@ async function deleteContent(req, res) {
 
 module.exports = {
     getAllContents,
+    searchContents,
     createContent,
     updateContent,
     deleteContent
