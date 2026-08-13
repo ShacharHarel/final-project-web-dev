@@ -3,6 +3,7 @@ async function loadContents() {
     const contentList = document.getElementById('content-list');
 
     try {
+        contentList.innerHTML = '';
         const response = await fetch('/api/contents');
         const contents = await response.json();
 
@@ -34,5 +35,42 @@ async function loadContents() {
         message.textContent = 'לא ניתן לטעון את התכנים.';
     }
 }
+
+const contentForm = document.getElementById('content-form');
+
+contentForm.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const formMessage = document.getElementById('form-message');
+    const content = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        category: document.getElementById('category').value,
+        type: document.getElementById('type').value,
+        releaseYear: Number(document.getElementById('releaseYear').value),
+        rating: Number(document.getElementById('rating').value) || 0,
+        videoUrl: document.getElementById('videoUrl').value,
+        imageUrl: document.getElementById('imageUrl').value,
+        address: document.getElementById('address').value
+    };
+
+    try {
+        const response = await fetch('/api/contents', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(content)
+        });
+
+        if (!response.ok) {
+            throw new Error();
+        }
+
+        contentForm.reset();
+        formMessage.textContent = 'התוכן נוסף בהצלחה.';
+        await loadContents();
+    } catch (error) {
+        formMessage.textContent = 'לא ניתן להוסיף את התוכן.';
+    }
+});
 
 loadContents();

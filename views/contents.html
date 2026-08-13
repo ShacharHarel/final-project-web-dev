@@ -13,6 +13,33 @@
     </header>
 
     <main>
+        <section class="content-form-section">
+            <h2>הוספת תוכן</h2>
+
+            <form id="content-form">
+                <input id="title" type="text" placeholder="שם התוכן" required>
+                <textarea id="description" placeholder="תיאור" required></textarea>
+                <input id="category" type="text" placeholder="קטגוריה" required>
+
+                <select id="type" required>
+                    <option value="">בחרו סוג תוכן</option>
+                    <option value="movie">סרט</option>
+                    <option value="series">סדרה</option>
+                </select>
+
+                <input id="releaseYear" type="number" placeholder="שנת יציאה" required>
+                <input id="rating" type="number" min="0" max="10" placeholder="דירוג">
+                <input id="videoUrl" type="text" placeholder="קישור לווידאו" required>
+                <input id="imageUrl" type="text" placeholder="קישור לתמונה" required>
+                <input id="address" type="text" placeholder="כתובת לצורך המפה">
+
+                <button type="submit">הוספה</button>
+            </form>
+
+            <p id="form-message"></p>
+        </section>
+
+        <h2>רשימת תכנים</h2>
         <p id="message">טוען תכנים...</p>
         <section id="content-list" class="content-grid"></section>
     </main>

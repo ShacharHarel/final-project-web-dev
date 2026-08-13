@@ -32,6 +32,31 @@ a {
     color: #ffffff;
 }
 
+.content-form-section {
+    max-width: 600px;
+    margin: 0 auto 60px;
+}
+
+#content-form {
+    display: grid;
+    gap: 12px;
+}
+
+#content-form input,
+#content-form textarea,
+#content-form select,
+#content-form button {
+    padding: 12px;
+    font: inherit;
+}
+
+#content-form button {
+    color: #ffffff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}
+
 .content-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
