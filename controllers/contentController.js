@@ -37,8 +37,23 @@ async function updateContent(req, res) {
     }
 }
 
+async function deleteContent(req, res) {
+    try {
+        const content = await Content.findByIdAndDelete(req.params.id);
+
+        if (!content) {
+            return res.status(404).json({ message: 'Content not found' });
+        }
+
+        res.json({ message: 'Content deleted' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getAllContents,
     createContent,
-    updateContent
+    updateContent,
+    deleteContent
 };
