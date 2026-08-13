@@ -148,3 +148,56 @@ a {
     border: none;
     cursor: pointer;
 }
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-form-section {
+    max-width: 600px;
+    margin: 0 auto 50px;
+}
+
+#profile-form {
+    display: grid;
+    gap: 12px;
+}
+
+#profile-form input,
+#profile-form button,
+#profile-search-form input,
+#profile-search-form button {
+    padding: 12px;
+    font: inherit;
+}
+
+#profile-form button {
+    color: #ffffff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}
+
+#cancel-profile-edit {
+    background-color: #555555;
+}
+
+#profile-search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.profile-card {
+    padding: 20px;
+    background-color: #222222;
+    border-radius: 8px;
+}

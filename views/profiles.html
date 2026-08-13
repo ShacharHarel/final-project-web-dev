@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פרופילי צפייה</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>פרופילי צפייה</h1>
+        <nav>
+            <a href="/feed">הפיד שלי</a>
+            <button id="logout-button" type="button">התנתקות</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-form-section">
+            <h2 id="profile-form-title">הוספת פרופיל</h2>
+
+            <form id="profile-form">
+                <input id="profile-name" type="text" placeholder="שם הפרופיל" minlength="2" required>
+                <input id="profile-age" type="number" min="1" max="120" placeholder="גיל" required>
+                <input id="favorite-categories" type="text" placeholder="קטגוריות מועדפות, מופרדות בפסיק">
+                <button id="profile-submit-button" type="submit">הוספה</button>
+                <button id="cancel-profile-edit" type="button" hidden>ביטול עריכה</button>
+            </form>
+
+            <p id="profile-form-message"></p>
+        </section>
+
+        <section class="search-section">
+            <h2>חיפוש פרופיל</h2>
+            <form id="profile-search-form">
+                <input id="profile-search-name" type="text" placeholder="חיפוש לפי שם" required>
+                <button type="submit">חיפוש</button>
+                <button id="clear-profile-search" type="button">הצגת הכול</button>
+            </form>
+        </section>
+
+        <h2>הפרופילים שלי</h2>
+        <p id="profile-message">טוען פרופילים...</p>
+        <section id="profile-list" class="profile-grid"></section>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/profiles.js"></script>
+</body>
+</html>
