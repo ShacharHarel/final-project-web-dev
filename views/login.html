@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>התחברות</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main>
+        <section class="auth-section">
+            <h1>התחברות</h1>
+
+            <form id="login-form" class="auth-form">
+                <input id="email" type="email" placeholder="אימייל" required>
+                <input id="password" type="password" placeholder="סיסמה" required>
+                <button type="submit">התחברות</button>
+            </form>
+
+            <p id="auth-message"></p>
+            <p>עדיין אין לך חשבון? <a href="/register">הרשמה</a></p>
+            <a href="/">חזרה לדף הבית</a>
+        </section>
+    </main>
+
+    <script src="/js/auth.js"></script>
+</body>
+</html>
