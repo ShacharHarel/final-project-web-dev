@@ -9,6 +9,17 @@ async function getAllContents(req, res) {
     }
 }
 
+async function createContent(req, res) {
+    try {
+        const content = new Content(req.body);
+        await content.save();
+        res.status(201).json(content);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
-    getAllContents
+    getAllContents,
+    createContent
 };
