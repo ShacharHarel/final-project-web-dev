@@ -201,3 +201,58 @@ header nav {
     background-color: #222222;
     border-radius: 8px;
 }
+
+.history-form-section {
+    max-width: 600px;
+    margin: 0 auto 50px;
+}
+
+#history-form {
+    display: grid;
+    gap: 12px;
+}
+
+#history-form input,
+#history-form select,
+#history-form button,
+#history-search-form select,
+#history-search-form button {
+    padding: 12px;
+    font: inherit;
+}
+
+#history-form button {
+    color: #ffffff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}
+
+#cancel-history-edit {
+    background-color: #555555;
+}
+
+.checkbox-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#history-search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.history-card {
+    padding: 20px;
+    background-color: #222222;
+    border-radius: 8px;
+}
