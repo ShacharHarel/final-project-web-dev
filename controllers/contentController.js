@@ -19,7 +19,26 @@ async function createContent(req, res) {
     }
 }
 
+async function updateContent(req, res) {
+    try {
+        const content = await Content.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!content) {
+            return res.status(404).json({ message: 'Content not found' });
+        }
+
+        res.json(content);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getAllContents,
-    createContent
+    createContent,
+    updateContent
 };
