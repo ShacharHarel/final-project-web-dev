@@ -28,7 +28,32 @@ async function loadContents() {
             const details = document.createElement('p');
             details.textContent = `${content.category} | ${content.releaseYear}`;
 
-            card.append(image, title, details);
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = 'מחיקה';
+
+            deleteButton.addEventListener('click', async () => {
+                if (!confirm('האם למחוק את התוכן?')) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/api/contents/${content._id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error();
+                    }
+
+                    await loadContents();
+                    message.textContent = 'התוכן נמחק בהצלחה.';
+                } catch (error) {
+                    message.textContent = 'לא ניתן למחוק את התוכן.';
+                }
+            });
+
+            card.append(image, title, details, deleteButton);
             contentList.appendChild(card);
         });
     } catch (error) {

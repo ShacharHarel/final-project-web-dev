@@ -79,3 +79,11 @@ a {
 .content-card h2 {
     font-size: 20px;
 }
+
+.delete-button {
+    padding: 8px 16px;
+    color: #ffffff;
+    background-color: #b00000;
+    border: none;
+    cursor: pointer;
+}
