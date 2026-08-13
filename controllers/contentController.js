@@ -1,4 +1,5 @@
 const Content = require('../models/Content');
+const WatchHistory = require('../models/WatchHistory');
 
 async function getAllContents(req, res) {
     try {
@@ -61,6 +62,7 @@ async function deleteContent(req, res) {
             return res.status(404).json({ message: 'Content not found' });
         }
 
+        await WatchHistory.deleteMany({ content: content._id });
         res.json({ message: 'Content deleted' });
     } catch (error) {
         res.status(400).json({ message: error.message });

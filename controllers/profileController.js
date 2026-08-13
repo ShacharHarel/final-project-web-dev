@@ -1,4 +1,5 @@
 const Profile = require('../models/Profile');
+const WatchHistory = require('../models/WatchHistory');
 
 async function getAllProfiles(req, res) {
     try {
@@ -77,6 +78,7 @@ async function deleteProfile(req, res) {
             return res.status(404).json({ message: 'הפרופיל לא נמצא.' });
         }
 
+        await WatchHistory.deleteMany({ profile: profile._id });
         res.json({ message: 'הפרופיל נמחק.' });
     } catch (error) {
         res.status(400).json({ message: error.message });

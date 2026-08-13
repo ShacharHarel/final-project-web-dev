@@ -6,6 +6,7 @@ const connectDatabase = require('./config/database');
 const contentRoutes = require('./routes/contentRoutes');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const watchHistoryRoutes = require('./routes/watchHistoryRoutes');
 const { requirePageAuth } = require('./middleware/authMiddleware');
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/contents', contentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/profiles', profileRoutes);
+app.use('/api/watch-history', watchHistoryRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -48,6 +50,10 @@ app.get('/feed', requirePageAuth, (req, res) => {
 
 app.get('/profiles', requirePageAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'profiles.html'));
+});
+
+app.get('/watch-history', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'watch-history.html'));
 });
 
 app.listen(port, async () => {
