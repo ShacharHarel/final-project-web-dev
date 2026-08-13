@@ -28,6 +28,14 @@ async function loadContents() {
             const details = document.createElement('p');
             details.textContent = `${content.category} | ${content.releaseYear}`;
 
+            const editButton = document.createElement('button');
+            editButton.className = 'edit-button';
+            editButton.textContent = 'עריכה';
+
+            editButton.addEventListener('click', () => {
+                startEditing(content);
+            });
+
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'מחיקה';
@@ -53,7 +61,7 @@ async function loadContents() {
                 }
             });
 
-            card.append(image, title, details, deleteButton);
+            card.append(image, title, details, editButton, deleteButton);
             contentList.appendChild(card);
         });
     } catch (error) {
@@ -62,6 +70,38 @@ async function loadContents() {
 }
 
 const contentForm = document.getElementById('content-form');
+const formTitle = document.getElementById('form-title');
+const submitButton = document.getElementById('submit-button');
+const cancelEditButton = document.getElementById('cancel-edit-button');
+let editingContentId = null;
+
+function startEditing(content) {
+    editingContentId = content._id;
+    document.getElementById('title').value = content.title;
+    document.getElementById('description').value = content.description;
+    document.getElementById('category').value = content.category;
+    document.getElementById('type').value = content.type;
+    document.getElementById('releaseYear').value = content.releaseYear;
+    document.getElementById('rating').value = content.rating;
+    document.getElementById('videoUrl').value = content.videoUrl;
+    document.getElementById('imageUrl').value = content.imageUrl;
+    document.getElementById('address').value = content.address || '';
+
+    formTitle.textContent = 'עריכת תוכן';
+    submitButton.textContent = 'שמירת שינויים';
+    cancelEditButton.hidden = false;
+    contentForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+function stopEditing() {
+    editingContentId = null;
+    contentForm.reset();
+    formTitle.textContent = 'הוספת תוכן';
+    submitButton.textContent = 'הוספה';
+    cancelEditButton.hidden = true;
+}
+
+cancelEditButton.addEventListener('click', stopEditing);
 
 contentForm.addEventListener('submit', async event => {
     event.preventDefault();
@@ -80,8 +120,12 @@ contentForm.addEventListener('submit', async event => {
     };
 
     try {
-        const response = await fetch('/api/contents', {
-            method: 'POST',
+        const url = editingContentId ? `/api/contents/${editingContentId}` : '/api/contents';
+        const method = editingContentId ? 'PUT' : 'POST';
+        const successMessage = editingContentId ? 'התוכן עודכן בהצלחה.' : 'התוכן נוסף בהצלחה.';
+
+        const response = await fetch(url, {
+            method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(content)
         });
@@ -90,11 +134,13 @@ contentForm.addEventListener('submit', async event => {
             throw new Error();
         }
 
-        contentForm.reset();
-        formMessage.textContent = 'התוכן נוסף בהצלחה.';
+        stopEditing();
+        formMessage.textContent = successMessage;
         await loadContents();
     } catch (error) {
-        formMessage.textContent = 'לא ניתן להוסיף את התוכן.';
+        formMessage.textContent = editingContentId
+            ? 'לא ניתן לעדכן את התוכן.'
+            : 'לא ניתן להוסיף את התוכן.';
     }
 });
 

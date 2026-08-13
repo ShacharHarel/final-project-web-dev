@@ -14,7 +14,7 @@
 
     <main>
         <section class="content-form-section">
-            <h2>הוספת תוכן</h2>
+            <h2 id="form-title">הוספת תוכן</h2>
 
             <form id="content-form">
                 <input id="title" type="text" placeholder="שם התוכן" required>
@@ -33,7 +33,8 @@
                 <input id="imageUrl" type="text" placeholder="קישור לתמונה" required>
                 <input id="address" type="text" placeholder="כתובת לצורך המפה">
 
-                <button type="submit">הוספה</button>
+                <button id="submit-button" type="submit">הוספה</button>
+                <button id="cancel-edit-button" type="button" hidden>ביטול עריכה</button>
             </form>
 
             <p id="form-message"></p>
