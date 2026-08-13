@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
+app.get('/contents', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'contents.html'));
+});
+
 app.listen(port, async () => {
     console.log(`Server is running on http://localhost:${port}`);
     await connectDatabase();
