@@ -320,3 +320,30 @@ header nav {
     background-color: #222222;
     border-radius: 8px;
 }
+
+#user-search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+#user-search-form input,
+#user-search-form button,
+.user-card select,
+.user-card button {
+    padding: 10px;
+    font: inherit;
+}
+
+.user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.user-card {
+    padding: 20px;
+    background-color: #222222;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+}

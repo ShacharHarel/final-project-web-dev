@@ -59,6 +59,16 @@ if (welcomeMessage) {
         });
 }
 
+const userManagementLink = document.getElementById('user-management-link');
+
+if (userManagementLink) {
+    fetch('/api/auth/me')
+        .then(response => response.json())
+        .then(user => {
+            userManagementLink.hidden = user.role !== 'admin';
+        });
+}
+
 if (logoutButton) {
     logoutButton.addEventListener('click', async () => {
         await fetch('/api/auth/logout', { method: 'POST' });
