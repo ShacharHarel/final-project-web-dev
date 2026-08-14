@@ -9,6 +9,8 @@ const profileRoutes = require('./routes/profileRoutes');
 const watchHistoryRoutes = require('./routes/watchHistoryRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const userRoutes = require('./routes/userRoutes');
+const feedRoutes = require('./routes/feedRoutes');
+const externalRoutes = require('./routes/externalRoutes');
 const { requirePageAuth, requirePageAdmin } = require('./middleware/authMiddleware');
 
 dotenv.config();
@@ -25,12 +27,18 @@ app.use(session({
     cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+    next();
+});
 app.use('/api/contents', contentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/profiles', profileRoutes);
 app.use('/api/watch-history', watchHistoryRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/feed', feedRoutes);
+app.use('/api/external', externalRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -62,6 +70,14 @@ app.get('/watch-history', requirePageAuth, (req, res) => {
 
 app.get('/reviews', requirePageAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'reviews.html'));
+});
+
+app.get('/explore', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'explore.html'));
+});
+
+app.get('/services', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'services.html'));
 });
 
 app.get('/users', requirePageAdmin, (req, res) => {

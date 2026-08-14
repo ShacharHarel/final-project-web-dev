@@ -9,23 +9,54 @@
 <body>
     <header>
         <h1>הפיד שלי</h1>
-        <button id="logout-button" type="button">התנתקות</button>
+        <nav>
+            <a href="/profiles">פרופילים</a>
+            <a href="/watch-history">היסטוריית צפייה</a>
+            <a href="/reviews">ביקורות</a>
+            <a href="/contents">קטלוג</a>
+            <a href="/explore">חיפוש וסטטיסטיקות</a>
+            <a href="/services">מפה ומידע חיצוני</a>
+            <a id="user-management-link" href="/users" hidden>ניהול משתמשים</a>
+            <button id="logout-button" type="button">התנתקות</button>
+        </nav>
     </header>
 
     <main>
         <h2 id="welcome-message">טוען משתמש...</h2>
-        <p>הפיד האישי ייבנה בשלב ייעודי בהמשך.</p>
-        <a href="/profiles">ניהול פרופילי צפייה</a>
-        <br><br>
-        <a href="/watch-history">היסטוריית צפייה</a>
-        <br><br>
-        <a href="/reviews">תגובות ודירוגים</a>
-        <br><br>
-        <a href="/contents">מעבר לקטלוג התכנים</a>
-        <br><br>
-        <a id="user-management-link" href="/users" hidden>ניהול משתמשים</a>
+
+        <section class="feed-profile-section">
+            <label for="feed-profile">בחירת פרופיל:</label>
+            <select id="feed-profile"></select>
+            <p id="feed-message"></p>
+        </section>
+
+        <section>
+            <h2>המשך צפייה</h2>
+            <div id="continue-watching" class="content-grid"></div>
+        </section>
+
+        <section>
+            <h2>מומלץ עבורך</h2>
+            <div id="recommendations" class="content-grid"></div>
+        </section>
+
+        <section>
+            <h2>Top 10</h2>
+            <div id="top-10" class="content-grid"></div>
+        </section>
+
+        <section>
+            <h2>קטגוריות</h2>
+            <div id="feed-categories"></div>
+        </section>
+
+        <section>
+            <h2>ביקורות אחרונות</h2>
+            <div id="latest-reviews" class="review-grid"></div>
+        </section>
     </main>
 
     <script src="/js/auth.js"></script>
+    <script src="/js/feed.js"></script>
 </body>
 </html>

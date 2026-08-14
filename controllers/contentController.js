@@ -27,6 +27,86 @@ async function searchContents(req, res) {
     }
 }
 
+async function advancedSearch(req, res) {
+    try {
+        const { category, type, minRating } = req.query;
+
+        if (!category || !type || minRating === undefined) {
+            return res.status(400).json({ message: 'Category, type and minimum rating are required' });
+        }
+
+        const contents = await Content.find({
+            category: { $regex: category, $options: 'i' },
+            type,
+            rating: { $gte: Number(minRating) }
+        });
+
+        res.json(contents);
+    } catch (error) {
+        res.status(500).json({ message: 'Advanced search failed' });
+    }
+}
+
+async function searchByYear(req, res) {
+    try {
+        const { title, fromYear, toYear } = req.query;
+
+        if (!title || !fromYear || !toYear) {
+            return res.status(400).json({ message: 'Title and year range are required' });
+        }
+
+        const contents = await Content.find({
+            title: { $regex: title, $options: 'i' },
+            releaseYear: {
+                $gte: Number(fromYear),
+                $lte: Number(toYear)
+            }
+        });
+
+        res.json(contents);
+    } catch (error) {
+        res.status(500).json({ message: 'Year search failed' });
+    }
+}
+
+async function getCategoryStats(req, res) {
+    try {
+        const stats = await Content.aggregate([
+            {
+                $group: {
+                    _id: '$category',
+                    count: { $sum: 1 },
+                    averageRating: { $avg: '$rating' }
+                }
+            },
+            { $sort: { count: -1 } }
+        ]);
+
+        res.json(stats);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to load category statistics' });
+    }
+}
+
+async function getTypeStats(req, res) {
+    try {
+        const stats = await Content.aggregate([
+            {
+                $group: {
+                    _id: '$type',
+                    count: { $sum: 1 },
+                    averageRating: { $avg: '$rating' }
+                }
+            },
+            { $sort: { count: -1 } }
+        ]);
+
+        res.json(stats);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to load type statistics' });
+    }
+}
+
 async function createContent(req, res) {
     try {
         const content = new Content(req.body);
@@ -74,6 +154,10 @@ async function deleteContent(req, res) {
 module.exports = {
     getAllContents,
     searchContents,
+    advancedSearch,
+    searchByYear,
+    getCategoryStats,
+    getTypeStats,
     createContent,
     updateContent,
     deleteContent

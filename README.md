@@ -53,3 +53,26 @@ npm run seed
 ```
 
 Running the command again does not create duplicate titles.
+
+## Main features
+
+- Content CRUD and sample Netflix content
+- Registration, login and admin permissions
+- User profile management
+- Watch history
+- Reviews and ratings
+- Personal feed and recommendations
+- Two advanced searches
+- MongoDB statistics and two D3 charts
+- Google Maps locations and TVmaze information
+
+## Main pages
+
+- `/feed` - personal feed
+- `/contents` - content catalog
+- `/profiles` - profile management
+- `/watch-history` - watch history management
+- `/reviews` - reviews and ratings
+- `/users` - admin user management
+- `/explore` - advanced search, statistics and charts
+- `/services` - content map and external show information
