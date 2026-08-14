@@ -347,3 +347,16 @@ header nav {
     border-radius: 8px;
     overflow-wrap: anywhere;
 }
+
+.feed-profile-section {
+    margin-bottom: 40px;
+}
+
+.feed-profile-section select {
+    padding: 10px;
+    font: inherit;
+}
+
+#feed-categories > section {
+    margin-top: 40px;
+}
