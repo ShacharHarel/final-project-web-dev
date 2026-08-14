@@ -3,57 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>קטלוג תכנים</title>
+    <title>קטלוג התכנים</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>קטלוג התכנים</h1>
-        <a href="/">דף הבית</a>
+<body class="app-page catalog-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links">
+            <a href="/feed">⌂ ראשי</a>
+            <a class="active" href="/contents">▣ סרטים וסדרות</a>
+            <a href="/profiles">♙ פרופילים</a>
+            <a href="/explore">⌕ חיפוש מתקדם</a>
+        </nav>
     </header>
 
-    <main>
-        <section id="content-management" class="content-form-section" hidden>
-            <h2 id="form-title">הוספת תוכן</h2>
+    <main class="page-main">
+        <div class="page-heading">
+            <p class="eyebrow">כל מה שכדאי לראות</p>
+            <h1>סרטים וסדרות</h1>
+        </div>
 
-            <form id="content-form">
+        <section id="content-management" class="netflix-panel content-form-section" hidden>
+            <h2 id="form-title">הוספת תוכן</h2>
+            <form id="content-form" class="management-form">
                 <input id="title" type="text" placeholder="שם התוכן" required>
                 <textarea id="description" placeholder="תיאור" required></textarea>
                 <input id="category" type="text" placeholder="קטגוריה" required>
-
                 <select id="type" required>
                     <option value="">בחרו סוג תוכן</option>
                     <option value="movie">סרט</option>
                     <option value="series">סדרה</option>
                 </select>
-
                 <input id="releaseYear" type="number" placeholder="שנת יציאה" required>
-                <input id="rating" type="number" min="0" max="10" placeholder="דירוג">
-                <input id="videoUrl" type="text" placeholder="קישור לווידאו" required>
-                <input id="imageUrl" type="text" placeholder="קישור לתמונה" required>
+                <input id="rating" type="number" min="0" max="10" step="0.1" placeholder="דירוג">
+                <input id="videoUrl" type="url" placeholder="קישור לטריילר" required>
+                <input id="imageUrl" type="url" placeholder="קישור לתמונה" required>
                 <input id="address" type="text" placeholder="כתובת לצורך המפה">
-
-                <button id="submit-button" type="submit">הוספה</button>
-                <button id="cancel-edit-button" type="button" hidden>ביטול עריכה</button>
+                <div class="form-actions">
+                    <button id="submit-button" type="submit">הוספה</button>
+                    <button id="cancel-edit-button" class="secondary-button" type="button" hidden>ביטול עריכה</button>
+                </div>
             </form>
-
-            <p id="form-message"></p>
+            <p id="form-message" class="form-message"></p>
         </section>
 
-        <section class="search-section">
-            <h2>חיפוש תוכן</h2>
-            <form id="search-form">
-                <input id="search-title" type="text" placeholder="חיפוש לפי שם" required>
-                <button type="submit">חיפוש</button>
-                <button id="clear-search-button" type="button">הצגת הכול</button>
+        <section class="netflix-panel search-section">
+            <h2>חיפוש בקטלוג</h2>
+            <form id="search-form" class="search-form">
+                <input id="search-title" type="text" placeholder="שם הסרט או הסדרה" required>
+                <button type="submit">⌕ חיפוש</button>
+                <button id="clear-search-button" class="secondary-button" type="button">הצגת הכול</button>
             </form>
         </section>
 
-        <h2>רשימת תכנים</h2>
-        <p id="message">טוען תכנים...</p>
+        <div class="section-title"><h2>הקטלוג שלנו</h2></div>
+        <p id="message" class="status-message">טוען תכנים...</p>
         <section id="content-list" class="content-grid"></section>
     </main>
-
     <script src="/js/contents.js"></script>
 </body>
 </html>

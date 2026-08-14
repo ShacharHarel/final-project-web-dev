@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>היסטוריית צפייה</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>היסטוריית צפייה</title><link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>היסטוריית צפייה</h1>
-        <nav>
-            <a href="/feed">הפיד שלי</a>
-            <button id="logout-button" type="button">התנתקות</button>
-        </nav>
+<body class="app-page management-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links"><a href="/feed">⌂ ראשי</a><a href="/contents">▣ קטלוג</a><a href="/profiles">♙ פרופילים</a><a class="active" href="/watch-history">◷ היסטוריה</a></nav>
+        <button id="logout-button" class="logout-button" type="button">↪ יציאה</button>
     </header>
-
-    <main>
-        <section class="history-form-section">
+    <main class="page-main narrow-main">
+        <div class="page-heading"><p class="eyebrow">ממשיכים מאיפה שעצרנו</p><h1>היסטוריית צפייה</h1></div>
+        <section class="netflix-panel history-form-section">
             <h2 id="history-form-title">הוספת צפייה</h2>
-
-            <form id="history-form">
-                <select id="history-profile" required>
-                    <option value="">בחירת פרופיל</option>
-                </select>
-                <select id="history-content" required>
-                    <option value="">בחירת תוכן</option>
-                </select>
+            <form id="history-form" class="management-form">
+                <select id="history-profile" required><option value="">בחירת פרופיל</option></select>
+                <select id="history-content" required><option value="">בחירת תוכן</option></select>
                 <input id="watched-minutes" type="number" min="0" placeholder="דקות צפייה" required>
-                <label class="checkbox-label">
-                    <input id="completed" type="checkbox">
-                    הצפייה הושלמה
-                </label>
-                <button id="history-submit-button" type="submit">הוספה</button>
-                <button id="cancel-history-edit" type="button" hidden>ביטול עריכה</button>
+                <label class="checkbox-label"><input id="completed" type="checkbox">הצפייה הושלמה</label>
+                <div class="form-actions"><button id="history-submit-button" type="submit">הוספה</button><button id="cancel-history-edit" class="secondary-button" type="button" hidden>ביטול עריכה</button></div>
             </form>
-
-            <p id="history-form-message"></p>
+            <p id="history-form-message" class="form-message"></p>
         </section>
-
-        <section class="search-section">
+        <section class="netflix-panel search-section">
             <h2>חיפוש לפי פרופיל</h2>
-            <form id="history-search-form">
-                <select id="history-search-profile" required>
-                    <option value="">בחירת פרופיל</option>
-                </select>
-                <button type="submit">חיפוש</button>
-                <button id="clear-history-search" type="button">הצגת הכול</button>
+            <form id="history-search-form" class="search-form">
+                <select id="history-search-profile" required><option value="">בחירת פרופיל</option></select>
+                <button type="submit">⌕ חיפוש</button><button id="clear-history-search" class="secondary-button" type="button">הצגת הכול</button>
             </form>
         </section>
-
-        <h2>רשומות הצפייה</h2>
-        <p id="history-message">טוען היסטוריה...</p>
+        <div class="section-title"><h2>רשומות הצפייה</h2></div><p id="history-message" class="status-message">טוען היסטוריה...</p>
         <section id="history-list" class="history-grid"></section>
     </main>
-
-    <script src="/js/auth.js"></script>
-    <script src="/js/watch-history.js"></script>
+    <script src="/js/auth.js"></script><script src="/js/watch-history.js"></script>
 </body>
 </html>

@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>התחברות</title>
+    <title>כניסה ל־Netflix</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <main>
+<body class="auth-page">
+    <header class="top-nav auth-nav">
+        <a class="brand-logo" href="/">NETFLIX</a>
+    </header>
+
+    <main class="auth-main">
         <section class="auth-section">
-            <h1>התחברות</h1>
-
+            <h1>כניסה</h1>
             <form id="login-form" class="auth-form">
-                <input id="email" type="email" placeholder="אימייל" required>
-                <input id="password" type="password" placeholder="סיסמה" required>
-                <button type="submit">התחברות</button>
+                <input id="email" type="email" placeholder="אימייל" autocomplete="email" required>
+                <input id="password" type="password" placeholder="סיסמה" autocomplete="current-password" required>
+                <button type="submit">כניסה</button>
             </form>
-
-            <p id="auth-message"></p>
-            <p>עדיין אין לך חשבון? <a href="/register">הרשמה</a></p>
-            <a href="/">חזרה לדף הבית</a>
+            <p id="auth-message" class="form-message"></p>
+            <p class="muted-text">חדשים ב־Netflix? <a href="/register">הירשמו עכשיו</a></p>
+            <a class="back-link" href="/">⌂ חזרה לדף הבית</a>
         </section>
     </main>
 

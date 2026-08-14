@@ -1,68 +1,47 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>חיפוש מתקדם וסטטיסטיקות</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חיפוש וסטטיסטיקות</title><link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>חיפוש וסטטיסטיקות</h1>
-        <a href="/feed">חזרה לפיד</a>
+<body class="app-page explore-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links"><a href="/feed">⌂ ראשי</a><a href="/contents">▣ קטלוג</a><a class="active" href="/explore">⌕ חיפוש מתקדם</a><a href="/services">⌖ מפה ושירותים</a></nav>
     </header>
-
-    <main>
-        <section class="explore-form-section">
-            <h2>חיפוש לפי קטגוריה, סוג ודירוג</h2>
-            <form id="advanced-search-form">
-                <input id="advanced-category" type="text" placeholder="קטגוריה" required>
-                <select id="advanced-type" required>
-                    <option value="">סוג תוכן</option>
-                    <option value="movie">סרט</option>
-                    <option value="series">סדרה</option>
-                </select>
-                <input id="advanced-rating" type="number" min="0" max="10" step="0.1" placeholder="דירוג מינימלי" required>
-                <button type="submit">חיפוש</button>
-            </form>
-        </section>
-
-        <section class="explore-form-section">
-            <h2>חיפוש לפי שם וטווח שנים</h2>
-            <form id="year-search-form">
-                <input id="year-title" type="text" placeholder="שם או חלק משם" required>
-                <input id="from-year" type="number" placeholder="משנה" required>
-                <input id="to-year" type="number" placeholder="עד שנה" required>
-                <button type="submit">חיפוש</button>
-            </form>
-        </section>
-
-        <p id="explore-message"></p>
-        <section id="explore-results" class="content-grid"></section>
-
-        <section>
-            <h2>סיכום לפי קטגוריה</h2>
-            <div id="category-stats" class="stats-grid"></div>
-        </section>
-
-        <section>
-            <h2>סיכום לפי סוג תוכן</h2>
-            <div id="type-stats" class="stats-grid"></div>
-        </section>
-
-        <section>
-            <h2>גרף תכנים לפי קטגוריה</h2>
-            <div id="category-chart" class="chart-container"></div>
-        </section>
-
-        <section>
-            <h2>גרף סרטים מול סדרות</h2>
-            <div id="type-chart" class="chart-container"></div>
-        </section>
+    <main class="page-main">
+        <div class="page-heading"><p class="eyebrow">למצוא את הצפייה הבאה</p><h1>חיפוש וסטטיסטיקות</h1></div>
+        <div class="two-column-layout">
+            <section class="netflix-panel explore-form-section">
+                <h2>חיפוש לפי קטגוריה</h2>
+                <form id="advanced-search-form" class="management-form">
+                    <input id="advanced-category" type="text" placeholder="קטגוריה" required>
+                    <select id="advanced-type" required><option value="">סוג תוכן</option><option value="movie">סרט</option><option value="series">סדרה</option></select>
+                    <input id="advanced-rating" type="number" min="0" max="10" step="0.1" placeholder="דירוג מינימלי" required>
+                    <button type="submit">⌕ חיפוש</button>
+                </form>
+            </section>
+            <section class="netflix-panel explore-form-section">
+                <h2>חיפוש לפי שם ושנים</h2>
+                <form id="year-search-form" class="management-form">
+                    <input id="year-title" type="text" placeholder="שם או חלק משם" required>
+                    <input id="from-year" type="number" placeholder="משנת" required>
+                    <input id="to-year" type="number" placeholder="עד שנת" required>
+                    <button type="submit">⌕ חיפוש</button>
+                </form>
+            </section>
+        </div>
+        <p id="explore-message" class="status-message"></p><section id="explore-results" class="content-grid"></section>
+        <div class="section-title"><h2>הספרייה במספרים</h2></div>
+        <div class="two-column-layout stats-layout">
+            <section class="netflix-panel"><h2>סיכום לפי קטגוריה</h2><div id="category-stats" class="stats-grid"></div></section>
+            <section class="netflix-panel"><h2>סיכום לפי סוג תוכן</h2><div id="type-stats" class="stats-grid"></div></section>
+        </div>
+        <div class="two-column-layout chart-layout">
+            <section><h2>תכנים לפי קטגוריה</h2><div id="category-chart" class="chart-container"></div></section>
+            <section><h2>סרטים מול סדרות</h2><div id="type-chart" class="chart-container"></div></section>
+        </div>
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="/js/explore.js"></script>
-    <script src="/js/charts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script><script src="/js/explore.js"></script><script src="/js/charts.js"></script>
 </body>
 </html>
