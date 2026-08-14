@@ -80,6 +80,21 @@ a {
     font-size: 20px;
 }
 
+.content-description {
+    min-height: 72px;
+    color: #cccccc;
+}
+
+.trailer-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    color: #ffffff;
+    background-color: #e50914;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
 .delete-button {
     padding: 8px 16px;
     color: #ffffff;

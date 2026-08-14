@@ -43,3 +43,13 @@ public/       Client-side CSS, JavaScript and images
 config/       Project configuration
 server.js     Application entry point
 ```
+
+## Sample content
+
+Run this command once to add sample movies and series to MongoDB:
+
+```bash
+npm run seed
+```
+
+Running the command again does not create duplicate titles.

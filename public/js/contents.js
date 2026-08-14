@@ -33,7 +33,18 @@ async function loadContents(url = '/api/contents') {
             title.textContent = content.title;
 
             const details = document.createElement('p');
-            details.textContent = `${content.category} | ${content.releaseYear}`;
+            details.textContent = `${content.category} | ${content.releaseYear} | ${content.rating}/10`;
+
+            const description = document.createElement('p');
+            description.className = 'content-description';
+            description.textContent = content.description;
+
+            const trailerLink = document.createElement('a');
+            trailerLink.className = 'trailer-link';
+            trailerLink.href = content.videoUrl;
+            trailerLink.target = '_blank';
+            trailerLink.rel = 'noopener noreferrer';
+            trailerLink.textContent = 'צפייה בטריילר';
 
             const editButton = document.createElement('button');
             editButton.className = 'edit-button';
@@ -68,7 +79,7 @@ async function loadContents(url = '/api/contents') {
                 }
             });
 
-            card.append(image, title, details);
+            card.append(image, title, details, description, trailerLink);
 
             if (currentUserRole === 'admin') {
                 card.append(editButton, deleteButton);
