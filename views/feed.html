@@ -3,54 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הפיד שלי</title>
+    <title>Netflix - הפיד שלי</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>הפיד שלי</h1>
-        <nav>
-            <a href="/profiles">פרופילים</a>
-            <a href="/watch-history">היסטוריית צפייה</a>
-            <a href="/reviews">ביקורות</a>
-            <a href="/contents">קטלוג</a>
-            <a href="/explore">חיפוש וסטטיסטיקות</a>
-            <a href="/services">מפה ומידע חיצוני</a>
-            <a id="user-management-link" href="/users" hidden>ניהול משתמשים</a>
-            <button id="logout-button" type="button">התנתקות</button>
+<body class="app-page feed-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links">
+            <a class="active" href="/feed">⌂ בית</a>
+            <a href="/contents">▶ קטלוג</a>
+            <a href="/profiles">♙ פרופילים</a>
+            <a href="/watch-history">◷ היסטוריה</a>
+            <a href="/reviews">★ ביקורות</a>
+            <a href="/explore">⌕ חיפוש</a>
+            <a href="/services">⌖ מפה</a>
+            <a id="user-management-link" href="/users" hidden>⚙ משתמשים</a>
         </nav>
+        <button id="logout-button" class="logout-button" type="button">↪ יציאה</button>
     </header>
 
-    <main>
-        <h2 id="welcome-message">טוען משתמש...</h2>
+    <section class="feed-hero">
+        <div class="feed-hero-content">
+            <span class="netflix-label">N SERIES</span>
+            <h1>STRANGER THINGS</h1>
+            <p>כוחות על־טבעיים, סודות וחבורה אחת שלא מוותרת. התחילו לצפות עכשיו.</p>
+            <div class="hero-actions">
+                <a class="play-button" href="/contents">▶ צפייה</a>
+                <a class="info-button" href="/explore">ⓘ מידע נוסף</a>
+            </div>
+        </div>
+    </section>
 
-        <section class="feed-profile-section">
-            <label for="feed-profile">בחירת פרופיל:</label>
+    <main class="feed-main">
+        <section class="profile-bar">
+            <div>
+                <h2 id="welcome-message">טוען משתמש...</h2>
+                <p id="feed-message" class="muted-text"></p>
+            </div>
+            <label for="feed-profile">מי צופה?</label>
             <select id="feed-profile"></select>
-            <p id="feed-message"></p>
         </section>
 
-        <section>
+        <section class="content-row-section">
             <h2>המשך צפייה</h2>
             <div id="continue-watching" class="content-grid"></div>
         </section>
-
-        <section>
+        <section class="content-row-section">
             <h2>מומלץ עבורך</h2>
             <div id="recommendations" class="content-grid"></div>
         </section>
-
-        <section>
-            <h2>Top 10</h2>
-            <div id="top-10" class="content-grid"></div>
+        <section class="content-row-section">
+            <h2>10 המובילים היום</h2>
+            <div id="top-10" class="content-grid top-ten-row"></div>
         </section>
-
-        <section>
-            <h2>קטגוריות</h2>
+        <section class="content-row-section">
+            <h2>חיפוש לפי קטגוריה</h2>
             <div id="feed-categories"></div>
         </section>
-
-        <section>
+        <section class="content-row-section">
             <h2>ביקורות אחרונות</h2>
             <div id="latest-reviews" class="review-grid"></div>
         </section>

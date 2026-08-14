@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ניהול משתמשים</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול משתמשים</title><link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>ניהול משתמשים</h1>
-        <nav>
-            <a href="/feed">חזרה לפיד</a>
-        </nav>
+<body class="app-page management-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links"><a href="/feed">⌂ ראשי</a><a href="/contents">▣ קטלוג</a><a class="active" href="/users">⚙ ניהול משתמשים</a></nav>
     </header>
-
-    <main>
-        <section class="search-section">
+    <main class="page-main narrow-main">
+        <div class="page-heading"><p class="eyebrow">למנהלים בלבד</p><h1>ניהול משתמשים</h1></div>
+        <section class="netflix-panel search-section">
             <h2>חיפוש משתמש</h2>
-            <form id="user-search-form">
+            <form id="user-search-form" class="search-form">
                 <input id="user-search" type="text" placeholder="שם משתמש או אימייל" required>
-                <button type="submit">חיפוש</button>
-                <button id="clear-user-search" type="button">הצגת הכול</button>
+                <button type="submit">⌕ חיפוש</button><button id="clear-user-search" class="secondary-button" type="button">הצגת הכול</button>
             </form>
         </section>
-
-        <h2>רשימת משתמשים</h2>
-        <p id="user-message">טוען משתמשים...</p>
+        <div class="section-title"><h2>רשימת משתמשים</h2></div><p id="user-message" class="status-message">טוען משתמשים...</p>
         <section id="user-list" class="user-grid"></section>
     </main>
-
     <script src="/js/users.js"></script>
 </body>
 </html>

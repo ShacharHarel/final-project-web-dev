@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מפה ושירות חיצוני</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מפה ושירות חיצוני</title><link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <header>
-        <h1>מפה ומידע חיצוני</h1>
-        <a href="/feed">חזרה לפיד</a>
+<body class="app-page services-page">
+    <header class="top-nav">
+        <a class="brand-logo" href="/feed">NETFLIX</a>
+        <nav class="nav-links"><a href="/feed">⌂ ראשי</a><a href="/contents">▣ קטלוג</a><a href="/explore">⌕ חיפוש מתקדם</a><a class="active" href="/services">⌖ מפה ושירותים</a></nav>
     </header>
-
-    <main>
-        <section>
-            <h2>מיקום תוכן</h2>
-            <select id="map-content"></select>
-            <p id="map-address"></p>
-            <iframe id="map-frame" title="מפת מיקום" loading="lazy"></iframe>
-        </section>
-
-        <section class="external-service-section">
-            <h2>מידע על סדרה מ־TVmaze</h2>
-            <form id="external-search-form">
-                <input id="external-title" type="text" placeholder="שם סדרה" required>
-                <button type="submit">חיפוש מידע</button>
-            </form>
-            <p id="external-message"></p>
-            <article id="external-result" class="external-result"></article>
-        </section>
+    <main class="page-main">
+        <div class="page-heading"><p class="eyebrow">מסביב לעולם</p><h1>מפה ומידע חיצוני</h1></div>
+        <div class="two-column-layout services-layout">
+            <section class="netflix-panel map-section">
+                <h2>⌖ מיקום הקשור לתוכן</h2>
+                <select id="map-content"></select><p id="map-address" class="status-message"></p>
+                <iframe id="map-frame" title="מפת מיקום" loading="lazy"></iframe>
+            </section>
+            <section class="netflix-panel external-service-section">
+                <h2>▣ מידע על סדרה מ־TVmaze</h2>
+                <p class="panel-description">חפשו סדרה וקבלו תקציר, דירוג ותמונה.</p>
+                <form id="external-search-form" class="search-form">
+                    <input id="external-title" type="text" placeholder="שם הסדרה" required><button type="submit">⌕ חיפוש מידע</button>
+                </form>
+                <p id="external-message" class="status-message"></p><article id="external-result" class="external-result"></article>
+            </section>
+        </div>
     </main>
-
     <script src="/js/services.js"></script>
 </body>
 </html>
