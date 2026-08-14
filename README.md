@@ -64,6 +64,7 @@ Running the command again does not create duplicate titles.
 - Personal feed and recommendations
 - Two advanced searches
 - MongoDB statistics and two D3 charts
+- Google Maps locations and TVmaze information
 
 ## Main pages
 
@@ -74,3 +75,4 @@ Running the command again does not create duplicate titles.
 - `/reviews` - reviews and ratings
 - `/users` - admin user management
 - `/explore` - advanced search, statistics and charts
+- `/services` - content map and external show information

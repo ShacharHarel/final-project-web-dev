@@ -10,6 +10,7 @@ const watchHistoryRoutes = require('./routes/watchHistoryRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const userRoutes = require('./routes/userRoutes');
 const feedRoutes = require('./routes/feedRoutes');
+const externalRoutes = require('./routes/externalRoutes');
 const { requirePageAuth, requirePageAdmin } = require('./middleware/authMiddleware');
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use('/api/watch-history', watchHistoryRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/feed', feedRoutes);
+app.use('/api/external', externalRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -72,6 +74,10 @@ app.get('/reviews', requirePageAuth, (req, res) => {
 
 app.get('/explore', requirePageAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'explore.html'));
+});
+
+app.get('/services', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'services.html'));
 });
 
 app.get('/users', requirePageAdmin, (req, res) => {
