@@ -403,3 +403,26 @@ header nav {
     display: block;
     width: 100%;
 }
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    header nav,
+    .home-links,
+    #search-form,
+    #profile-search-form,
+    #history-search-form,
+    #review-search-form,
+    #user-search-form,
+    .explore-form-section form {
+        flex-direction: column;
+    }
+
+    main {
+        margin: 20px auto;
+        padding: 16px;
+    }
+}

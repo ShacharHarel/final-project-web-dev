@@ -26,6 +26,10 @@ app.use(session({
     cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+    next();
+});
 app.use('/api/contents', contentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/profiles', profileRoutes);
