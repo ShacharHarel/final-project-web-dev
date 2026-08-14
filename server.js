@@ -66,6 +66,10 @@ app.get('/reviews', requirePageAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'reviews.html'));
 });
 
+app.get('/explore', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'explore.html'));
+});
+
 app.get('/users', requirePageAdmin, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'users.html'));
 });

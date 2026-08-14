@@ -360,3 +360,33 @@ header nav {
 #feed-categories > section {
     margin-top: 40px;
 }
+
+.explore-form-section {
+    margin-bottom: 30px;
+}
+
+.explore-form-section form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.explore-form-section input,
+.explore-form-section select,
+.explore-form-section button {
+    padding: 10px;
+    font: inherit;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.stats-card {
+    padding: 16px;
+    background-color: #222222;
+    border-radius: 8px;
+}
