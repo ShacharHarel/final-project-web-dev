@@ -256,3 +256,52 @@ header nav {
     background-color: #222222;
     border-radius: 8px;
 }
+
+.review-form-section {
+    max-width: 600px;
+    margin: 0 auto 50px;
+}
+
+#review-form {
+    display: grid;
+    gap: 12px;
+}
+
+#review-form input,
+#review-form select,
+#review-form textarea,
+#review-form button,
+#review-search-form select,
+#review-search-form button {
+    padding: 12px;
+    font: inherit;
+}
+
+#review-form button {
+    color: #ffffff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}
+
+#cancel-review-edit {
+    background-color: #555555;
+}
+
+#review-search-form {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.review-card {
+    padding: 20px;
+    background-color: #222222;
+    border-radius: 8px;
+}

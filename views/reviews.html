@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תגובות ודירוגים</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>תגובות ודירוגים</h1>
+        <nav>
+            <a href="/feed">הפיד שלי</a>
+            <button id="logout-button" type="button">התנתקות</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="review-form-section">
+            <h2 id="review-form-title">הוספת תגובה</h2>
+
+            <form id="review-form">
+                <select id="review-content" required>
+                    <option value="">בחירת תוכן</option>
+                </select>
+                <input id="review-rating" type="number" min="1" max="10" placeholder="דירוג 1 עד 10" required>
+                <textarea id="review-text" maxlength="500" placeholder="כתיבת תגובה" required></textarea>
+                <button id="review-submit-button" type="submit">הוספה</button>
+                <button id="cancel-review-edit" type="button" hidden>ביטול עריכה</button>
+            </form>
+
+            <p id="review-form-message"></p>
+        </section>
+
+        <section class="search-section">
+            <h2>חיפוש לפי תוכן</h2>
+            <form id="review-search-form">
+                <select id="review-search-content" required>
+                    <option value="">בחירת תוכן</option>
+                </select>
+                <button type="submit">חיפוש</button>
+                <button id="clear-review-search" type="button">הצגת הכול</button>
+            </form>
+        </section>
+
+        <h2>כל התגובות</h2>
+        <p id="review-message">טוען תגובות...</p>
+        <section id="review-list" class="review-grid"></section>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/reviews.js"></script>
+</body>
+</html>
