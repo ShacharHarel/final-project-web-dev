@@ -390,3 +390,16 @@ header nav {
     background-color: #222222;
     border-radius: 8px;
 }
+
+.chart-container {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.chart-container svg {
+    display: block;
+    width: 100%;
+}
