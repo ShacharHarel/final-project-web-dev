@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check config/database.js"
+    "check": "node --check server.js && node --check config/database.js",
+    "seed": "node scripts/seedContent.js"
   },
   "private": true,
   "dependencies": {
