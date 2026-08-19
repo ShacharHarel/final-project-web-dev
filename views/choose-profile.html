@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מי צופה? - Netflix</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="profile-picker-page">
+    <header class="profile-picker-header">
+        <a class="brand-logo" href="/feed">
+            <img src="/images/netflix-logo.svg" alt="Netflix">
+        </a>
+        <button id="logout-button" class="profile-picker-logout" type="button">יציאה</button>
+    </header>
+
+    <main class="profile-picker-main">
+        <h1>מי צופה?</h1>
+        <p id="profile-picker-message" class="status-message">טוען פרופילים...</p>
+        <section id="profile-picker-list" class="profile-picker-list"></section>
+        <a class="manage-profiles-button" href="/profiles">ניהול פרופילים</a>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/choose-profile.js"></script>
+</body>
+</html>

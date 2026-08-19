@@ -56,6 +56,10 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
 
+app.get('/choose-profile', requirePageAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'choose-profile.html'));
+});
+
 app.get('/feed', requirePageAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'feed.html'));
 });
