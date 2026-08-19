@@ -1,3 +1,4 @@
+// קוד מסך השירותים: מציג כתובת תוכן ב-Google Maps ומחפש סדרה דרך TVmaze.
 const mapContent = document.getElementById('map-content');
 const mapAddress = document.getElementById('map-address');
 const mapFrame = document.getElementById('map-frame');
@@ -6,6 +7,7 @@ const externalMessage = document.getElementById('external-message');
 const externalResult = document.getElementById('external-result');
 let contents = [];
 
+/** מעדכנת את כתובת הטקסט ואת iframe המפה לפי התוכן שנבחר. */
 function showSelectedAddress() {
     const content = contents.find(item => item._id === mapContent.value);
 
@@ -17,6 +19,7 @@ function showSelectedAddress() {
     mapFrame.src = `https://www.google.com/maps?q=${encodeURIComponent(content.address)}&output=embed`;
 }
 
+/** טוענת תכנים עם כתובת, ממלאת את ה-select ומציגה את המיקום הראשון. */
 async function loadMapContents() {
     const response = await fetch('/api/contents');
     contents = await response.json();
@@ -28,6 +31,7 @@ async function loadMapContents() {
     showSelectedAddress();
 }
 
+// שליחת טופס TVmaze מחפשת סדרה ומציגה את התוצאה שהשרת החזיר.
 externalForm.addEventListener('submit', async event => {
     event.preventDefault();
     externalResult.innerHTML = '';
@@ -63,5 +67,6 @@ externalForm.addEventListener('submit', async event => {
     }
 });
 
+// שינוי הבחירה מעדכן מפה; אתחול המסך טוען את רשימת התכנים.
 mapContent.addEventListener('change', showSelectedAddress);
 loadMapContents();

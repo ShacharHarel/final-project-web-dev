@@ -1,6 +1,8 @@
+// Controller של אימות משתמשים: הרשמה, התחברות, התנתקות וקבלת המשתמש המחובר.
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
+/** מאמתת נתוני הרשמה, מצפינה סיסמה, יוצרת משתמש ופותחת עבורו Session. */
 async function register(req, res) {
     try {
         const { username, email, password } = req.body;
@@ -51,6 +53,7 @@ async function register(req, res) {
     }
 }
 
+/** בודקת אימייל וסיסמה מול MongoDB ויוצרת Session כאשר הפרטים נכונים. */
 async function login(req, res) {
     try {
         const { email, password } = req.body;
@@ -78,6 +81,7 @@ async function login(req, res) {
     }
 }
 
+/** מוחקת את ה-Session הפעיל ומחזירה הודעת הצלחה או שגיאה. */
 function logout(req, res) {
     req.session.destroy(error => {
         if (error) {
@@ -88,6 +92,7 @@ function logout(req, res) {
     });
 }
 
+/** מחזירה את שם המשתמש, האימייל והתפקיד של המשתמש המזוהה ב-Session. */
 async function getCurrentUser(req, res) {
     try {
         const user = await User.findById(req.session.userId).select('username email role');

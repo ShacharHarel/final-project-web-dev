@@ -1,3 +1,4 @@
+// Model של ביקורת: שומר ציון וטקסט שמשתמש כתב על תוכן מסוים.
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({

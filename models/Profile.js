@@ -1,3 +1,4 @@
+// Model של פרופיל צפייה: כל פרופיל שייך למשתמש ושומר גיל וקטגוריות מועדפות.
 const mongoose = require('mongoose');
 
 const profileSchema = new mongoose.Schema({

@@ -1,3 +1,4 @@
+// Model של משתמש: שומר פרטי התחברות ותפקיד הרשאה, user או admin.
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({

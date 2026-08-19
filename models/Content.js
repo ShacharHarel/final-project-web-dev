@@ -1,3 +1,4 @@
+// Model של תוכן: מגדיר כיצד סרט או סדרה נשמרים באוסף contents ב-MongoDB.
 const mongoose = require('mongoose');
 
 const contentSchema = new mongoose.Schema({

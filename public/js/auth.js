@@ -1,9 +1,11 @@
+// קוד צד לקוח לאימות: מטפל בהרשמה, התחברות, התנתקות והצגת פרטי המשתמש המחובר.
 const authMessage = document.getElementById('auth-message');
 const registerForm = document.getElementById('register-form');
 const loginForm = document.getElementById('login-form');
 const logoutButton = document.getElementById('logout-button');
 const welcomeMessage = document.getElementById('welcome-message');
 
+/** שולחת בקשת הרשמה או התחברות, מציגה שגיאה בעת כישלון ומעבירה לבחירת פרופיל בהצלחה. */
 async function sendAuthRequest(url, data) {
     const response = await fetch(url, {
         method: 'POST',
@@ -20,6 +22,7 @@ async function sendAuthRequest(url, data) {
     window.location.href = '/choose-profile';
 }
 
+// מאזין לטופס ההרשמה רק במסך שבו הטופס קיים.
 if (registerForm) {
     registerForm.addEventListener('submit', async event => {
         event.preventDefault();
@@ -36,6 +39,7 @@ if (registerForm) {
     });
 }
 
+// מאזין לטופס ההתחברות ושולח את הנתונים ללא רענון מלא של הדף.
 if (loginForm) {
     loginForm.addEventListener('submit', async event => {
         event.preventDefault();
@@ -51,6 +55,7 @@ if (loginForm) {
     });
 }
 
+// בפיד נטען שם המשתמש המחובר ומוצג באזור הברכה.
 if (welcomeMessage) {
     fetch('/api/auth/me')
         .then(response => response.json())
@@ -61,6 +66,7 @@ if (welcomeMessage) {
 
 const userManagementLink = document.getElementById('user-management-link');
 
+// קישור ניהול המשתמשים נחשף רק כאשר התפקיד שהוחזר הוא admin.
 if (userManagementLink) {
     fetch('/api/auth/me')
         .then(response => response.json())
@@ -69,6 +75,7 @@ if (userManagementLink) {
         });
 }
 
+// כפתור היציאה מוחק את ה-Session ואת בחירת הפרופיל המקומית.
 if (logoutButton) {
     logoutButton.addEventListener('click', async () => {
         await fetch('/api/auth/logout', { method: 'POST' });

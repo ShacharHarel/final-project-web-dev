@@ -1,3 +1,6 @@
+// Controller של שירות חיצוני: מקבל מידע על סדרה מ-API של TVmaze.
+
+/** מקבלת שם סדרה מה-query, פונה ל-TVmaze ומחזירה מידע נקי ללא תגיות HTML. */
 async function getShowInfo(req, res) {
     try {
         if (!req.query.title) {
