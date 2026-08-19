@@ -17,7 +17,7 @@ async function sendAuthRequest(url, data) {
         throw new Error(result.message);
     }
 
-    window.location.href = '/feed';
+    window.location.href = '/choose-profile';
 }
 
 if (registerForm) {
@@ -72,6 +72,7 @@ if (userManagementLink) {
 if (logoutButton) {
     logoutButton.addEventListener('click', async () => {
         await fetch('/api/auth/logout', { method: 'POST' });
+        localStorage.removeItem('selectedProfileId');
         window.location.href = '/login';
     });
 }

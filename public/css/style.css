@@ -53,13 +53,15 @@ button:hover, .primary-button:hover, .nav-button:hover, .play-button:hover, .inf
 }
 
 .brand-logo {
-    direction: ltr;
-    color: #e50914;
-    font-size: 32px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1;
-    text-shadow: 0 2px 8px rgba(229, 9, 20, 0.25);
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+}
+
+.brand-logo img {
+    display: block;
+    width: 135px;
+    height: auto;
 }
 
 .nav-links {
@@ -108,8 +110,8 @@ button:hover, .primary-button:hover, .nav-button:hover, .play-button:hover, .inf
     padding: 22px 8%;
 }
 
-.landing-nav .brand-logo, .auth-nav .brand-logo {
-    font-size: 42px;
+.landing-nav .brand-logo img, .auth-nav .brand-logo img {
+    width: 170px;
 }
 
 .landing-hero, .auth-page {
@@ -477,6 +479,36 @@ textarea {
     transform: scale(1.035);
 }
 
+.clickable-card {
+    cursor: pointer;
+}
+
+.clickable-card::after {
+    content: "▶";
+    position: absolute;
+    top: 125px;
+    right: 50%;
+    width: 52px;
+    height: 52px;
+    color: #111111;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 52px;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(50%);
+    transition: opacity 0.2s;
+}
+
+.clickable-card:hover::after, .clickable-card:focus::after {
+    opacity: 1;
+}
+
+.clickable-card:focus {
+    outline: 2px solid #ffffff;
+}
+
 .content-card {
     padding: 0 0 16px;
 }
@@ -624,6 +656,120 @@ textarea {
     line-height: 1.6;
 }
 
+.profile-picker-page {
+    background: #141414;
+}
+
+.profile-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+    padding: 20px 4%;
+}
+
+.profile-picker-header .brand-logo img {
+    width: 155px;
+}
+
+.profile-picker-logout {
+    padding: 9px 18px;
+    color: #b3b3b3;
+    background: transparent;
+    border: 1px solid #777777;
+}
+
+.profile-picker-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px);
+    padding: 30px 20px 80px;
+    text-align: center;
+}
+
+.profile-picker-main h1 {
+    margin-bottom: 35px;
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 400;
+}
+
+.profile-picker-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-bottom: 55px;
+}
+
+.profile-choice, .add-profile-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 160px;
+    padding: 0;
+    color: #9b9b9b;
+    background: transparent;
+    border: 0;
+    font-size: 20px;
+}
+
+.profile-avatar, .add-profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+    border: 3px solid transparent;
+    border-radius: 5px;
+}
+
+.profile-avatar {
+    color: #ffffff;
+    font-size: 70px;
+    font-weight: 700;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+.blue-avatar { background: linear-gradient(135deg, #1261a0, #29a3ef); }
+.green-avatar { background: linear-gradient(135deg, #155f45, #4db97a); }
+.purple-avatar { background: linear-gradient(135deg, #5b168e, #bd48e8); }
+.red-avatar { background: linear-gradient(135deg, #8f1118, #e50914); }
+
+.add-profile-icon {
+    color: #141414;
+    background: #777777;
+    border-radius: 50%;
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.profile-choice:hover, .add-profile-choice:hover {
+    color: #ffffff;
+    transform: none;
+}
+
+.profile-choice:hover .profile-avatar, .profile-choice:focus .profile-avatar,
+.add-profile-choice:hover .add-profile-icon {
+    border-color: #ffffff;
+}
+
+.manage-profiles-button {
+    padding: 12px 28px;
+    color: #8c8c8c;
+    border: 1px solid #777777;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.manage-profiles-button:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
 [hidden] {
     display: none !important;
 }
@@ -657,8 +803,8 @@ textarea {
 }
 
 @media (max-width: 600px) {
-    .landing-nav .brand-logo, .auth-nav .brand-logo {
-        font-size: 32px;
+    .landing-nav .brand-logo img, .auth-nav .brand-logo img {
+        width: 125px;
     }
 
     .landing-content p {
@@ -704,5 +850,26 @@ textarea {
 
     .feed-page .content-card img, #feed-categories .content-card img {
         height: 235px;
+    }
+
+    .profile-picker-main {
+        justify-content: flex-start;
+    }
+
+    .profile-picker-list {
+        gap: 22px;
+    }
+
+    .profile-choice, .add-profile-choice {
+        width: 125px;
+    }
+
+    .profile-avatar, .add-profile-icon {
+        width: 125px;
+        height: 125px;
+    }
+
+    .add-profile-icon {
+        font-size: 85px;
     }
 }

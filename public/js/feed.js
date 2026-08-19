@@ -3,7 +3,10 @@ const feedMessage = document.getElementById('feed-message');
 
 function createContentCard(content, extraText = '') {
     const card = document.createElement('article');
-    card.className = 'content-card';
+    card.className = 'content-card clickable-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'link');
+    card.title = `צפייה בטריילר של ${content.title}`;
 
     const image = document.createElement('img');
     image.src = content.imageUrl;
@@ -22,6 +25,17 @@ function createContentCard(content, extraText = '') {
         extra.textContent = extraText;
         card.append(extra);
     }
+
+    function openTrailer() {
+        window.location.href = content.videoUrl;
+    }
+
+    card.addEventListener('click', openTrailer);
+    card.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            openTrailer();
+        }
+    });
 
     return card;
 }
@@ -144,8 +158,17 @@ async function loadProfiles() {
         profileSelect.add(new Option(profile.name, profile._id));
     });
 
+    const selectedProfileId = localStorage.getItem('selectedProfileId');
+
+    if (profiles.some(profile => profile._id === selectedProfileId)) {
+        profileSelect.value = selectedProfileId;
+    }
+
     await loadFeed();
 }
 
-profileSelect.addEventListener('change', loadFeed);
+profileSelect.addEventListener('change', () => {
+    localStorage.setItem('selectedProfileId', profileSelect.value);
+    loadFeed();
+});
 loadProfiles();
