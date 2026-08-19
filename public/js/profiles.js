@@ -1,3 +1,4 @@
+// קוד מסך הפרופילים: מציג, מחפש ומבצע CRUD בפרופילי הצפייה של המשתמש.
 const profileList = document.getElementById('profile-list');
 const profileMessage = document.getElementById('profile-message');
 const profileForm = document.getElementById('profile-form');
@@ -7,6 +8,7 @@ const cancelProfileEdit = document.getElementById('cancel-profile-edit');
 const profileSearchForm = document.getElementById('profile-search-form');
 let editingProfileId = null;
 
+/** טוענת פרופילים מהשרת ובונה כרטיס עם פעולות עריכה ומחיקה לכל פרופיל. */
 async function loadProfiles(url = '/api/profiles') {
     try {
         profileList.innerHTML = '';
@@ -45,11 +47,13 @@ async function loadProfiles(url = '/api/profiles') {
             const editButton = document.createElement('button');
             editButton.className = 'edit-button';
             editButton.textContent = 'עריכה';
+            // לחיצה על עריכה ממלאת את הטופס בנתוני הפרופיל שנבחר.
             editButton.addEventListener('click', () => startProfileEdit(profile));
 
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'מחיקה';
+            // לחיצה על מחיקה שולחת את מזהה הפרופיל לפונקציית המחיקה.
             deleteButton.addEventListener('click', () => deleteProfile(profile._id));
 
             card.append(name, age, categories, editButton, deleteButton);
@@ -60,6 +64,7 @@ async function loadProfiles(url = '/api/profiles') {
     }
 }
 
+/** קוראת את שדות הטופס ומחזירה אובייקט מוכן לשליחה ל-API. */
 function getProfileData() {
     const categories = document.getElementById('favorite-categories').value
         .split(',')
@@ -73,6 +78,7 @@ function getProfileData() {
     };
 }
 
+/** ממלאת את הטופס בפרופיל קיים ומעבירה את המסך למצב עריכה. */
 function startProfileEdit(profile) {
     editingProfileId = profile._id;
     document.getElementById('profile-name').value = profile.name;
@@ -84,6 +90,7 @@ function startProfileEdit(profile) {
     profileForm.scrollIntoView({ behavior: 'smooth' });
 }
 
+/** מאפסת את מצב העריכה ואת הטופס ומחזירה את כפתור ההוספה. */
 function stopProfileEdit() {
     editingProfileId = null;
     profileForm.reset();
@@ -92,6 +99,7 @@ function stopProfileEdit() {
     cancelProfileEdit.hidden = true;
 }
 
+/** מבקשת אישור, מוחקת פרופיל דרך ה-API וטוענת מחדש את הרשימה. */
 async function deleteProfile(profileId) {
     if (!confirm('האם למחוק את הפרופיל?')) {
         return;
@@ -111,6 +119,7 @@ async function deleteProfile(profileId) {
     }
 }
 
+// שליחת הטופס מבצעת הוספה או עדכון לפי מצב editingProfileId.
 profileForm.addEventListener('submit', async event => {
     event.preventDefault();
 
@@ -140,8 +149,10 @@ profileForm.addEventListener('submit', async event => {
     }
 });
 
+// ביטול עריכה מחזיר את הטופס למצב הוספה.
 cancelProfileEdit.addEventListener('click', stopProfileEdit);
 
+// חיפוש פרופילים נשלח לפי השם שהוקלד.
 profileSearchForm.addEventListener('submit', event => {
     event.preventDefault();
     const name = document.getElementById('profile-search-name').value.trim();
@@ -151,9 +162,11 @@ profileSearchForm.addEventListener('submit', event => {
     }
 });
 
+// ניקוי החיפוש טוען מחדש את כל הפרופילים.
 document.getElementById('clear-profile-search').addEventListener('click', () => {
     profileSearchForm.reset();
     loadProfiles();
 });
 
+// אתחול המסך טוען את רשימת הפרופילים.
 loadProfiles();

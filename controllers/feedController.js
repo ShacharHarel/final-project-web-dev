@@ -1,8 +1,10 @@
+// Controller של הפיד: מרכיב עבור פרופיל אחד המשך צפייה, המלצות, Top 10 וביקורות.
 const Profile = require('../models/Profile');
 const Content = require('../models/Content');
 const WatchHistory = require('../models/WatchHistory');
 const Review = require('../models/Review');
 
+/** בונה פיד אישי לפרופיל ששייך למשתמש: המלצות, המשך צפייה, Top 10 וביקורות. */
 async function getPersonalFeed(req, res) {
     try {
         const profile = await Profile.findOne({

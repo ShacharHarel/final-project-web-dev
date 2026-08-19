@@ -1,3 +1,4 @@
+// קוד מסך ניהול המשתמשים: מאפשר למנהל לחפש, לשנות תפקיד ולמחוק משתמשים.
 const userList = document.getElementById('user-list');
 const userMessage = document.getElementById('user-message');
 const userSearchForm = document.getElementById('user-search-form');
@@ -5,6 +6,7 @@ const userSearch = document.getElementById('user-search');
 const clearUserSearch = document.getElementById('clear-user-search');
 let currentUserId = null;
 
+/** טוענת את id המשתמש המחובר כדי למנוע ממנו לנהל את עצמו בכרטיס. */
 async function loadCurrentUser() {
     const response = await fetch('/api/auth/me');
 
@@ -14,6 +16,7 @@ async function loadCurrentUser() {
     }
 }
 
+/** טוענת משתמשים ובונה כרטיס ניהול לכל משתמש מלבד המשתמש המחובר. */
 async function loadUsers(url = '/api/users') {
     try {
         const response = await fetch(url);
@@ -56,6 +59,7 @@ async function loadUsers(url = '/api/users') {
     }
 }
 
+/** מוסיפה לכרטיס בחירת תפקיד וכפתורי עדכון ומחיקה עבור משתמש אחר. */
 function addManagementButtons(card, user) {
     const roleSelect = document.createElement('select');
     roleSelect.innerHTML = `
@@ -67,6 +71,7 @@ function addManagementButtons(card, user) {
     const updateButton = document.createElement('button');
     updateButton.className = 'edit-button';
     updateButton.textContent = 'עדכון תפקיד';
+    // לחיצה מעדכנת בשרת את התפקיד שנבחר ומרעננת את הרשימה.
     updateButton.addEventListener('click', async () => {
         try {
             const response = await fetch(`/api/users/${user._id}/role`, {
@@ -91,6 +96,7 @@ function addManagementButtons(card, user) {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-button';
     deleteButton.textContent = 'מחיקה';
+    // לחיצה מבקשת אישור ולאחריו מוחקת את המשתמש מהשרת.
     deleteButton.addEventListener('click', async () => {
         if (!confirm('האם למחוק את המשתמש?')) {
             return;
@@ -114,6 +120,7 @@ function addManagementButtons(card, user) {
     card.append(roleSelect, updateButton, deleteButton);
 }
 
+// טופס החיפוש מסנן משתמשים לפי שם או אימייל.
 userSearchForm.addEventListener('submit', event => {
     event.preventDefault();
     const query = userSearch.value.trim();
@@ -123,9 +130,11 @@ userSearchForm.addEventListener('submit', event => {
     }
 });
 
+// ניקוי החיפוש מחזיר את רשימת המשתמשים המלאה.
 clearUserSearch.addEventListener('click', () => {
     userSearchForm.reset();
     loadUsers();
 });
 
+// האתחול מזהה תחילה את המנהל המחובר ואז מציג את שאר המשתמשים.
 loadCurrentUser().then(loadUsers);

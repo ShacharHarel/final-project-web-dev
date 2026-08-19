@@ -1,6 +1,8 @@
+// Controller של פרופילים: CRUD וחיפוש בפרופילי הצפייה של המשתמש המחובר בלבד.
 const Profile = require('../models/Profile');
 const WatchHistory = require('../models/WatchHistory');
 
+/** מחזירה רק את פרופילי הצפייה ששייכים למשתמש המחובר. */
 async function getAllProfiles(req, res) {
     try {
         const profiles = await Profile.find({ user: req.session.userId });
@@ -10,6 +12,7 @@ async function getAllProfiles(req, res) {
     }
 }
 
+/** מחפשת בשם פרופיל בתוך הפרופילים של המשתמש המחובר בלבד. */
 async function searchProfiles(req, res) {
     try {
         if (!req.query.name) {
@@ -27,6 +30,7 @@ async function searchProfiles(req, res) {
     }
 }
 
+/** מאמתת שם וגיל ויוצרת פרופיל חדש המקושר למשתמש שב-Session. */
 async function createProfile(req, res) {
     try {
         const { name, age, favoriteCategories } = req.body;
@@ -48,6 +52,7 @@ async function createProfile(req, res) {
     }
 }
 
+/** מעדכנת פרופיל רק אם גם ה-id וגם המשתמש המחובר תואמים. */
 async function updateProfile(req, res) {
     try {
         const { name, age, favoriteCategories } = req.body;
@@ -67,6 +72,7 @@ async function updateProfile(req, res) {
     }
 }
 
+/** מוחקת פרופיל בבעלות המשתמש ומנקה את היסטוריית הצפייה שלו. */
 async function deleteProfile(req, res) {
     try {
         const profile = await Profile.findOneAndDelete({

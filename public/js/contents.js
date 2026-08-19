@@ -1,3 +1,6 @@
+// קוד מסך הקטלוג: מציג, מחפש ומנהל CRUD של תכנים בהתאם להרשאת המשתמש.
+
+/** טוענת תכנים מהכתובת שנשלחה ובונה את כרטיסי הקטלוג; ברירת המחדל היא כל התכנים. */
 async function loadContents(url = '/api/contents') {
     const message = document.getElementById('message');
     const contentList = document.getElementById('content-list');
@@ -50,6 +53,7 @@ async function loadContents(url = '/api/contents') {
             editButton.className = 'edit-button';
             editButton.textContent = 'עריכה';
 
+            // לחיצה על עריכה מעתיקה את נתוני הכרטיס לטופס.
             editButton.addEventListener('click', () => {
                 startEditing(content);
             });
@@ -58,6 +62,7 @@ async function loadContents(url = '/api/contents') {
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'מחיקה';
 
+            // לחיצה על מחיקה מבקשת אישור ושולחת DELETE לשרת.
             deleteButton.addEventListener('click', async () => {
                 if (!confirm('האם למחוק את התוכן?')) {
                     return;
@@ -103,6 +108,7 @@ const cancelEditButton = document.getElementById('cancel-edit-button');
 let editingContentId = null;
 let currentUserRole = null;
 
+/** טוענת את הרשאת המשתמש ומציגה את טופס ניהול התוכן רק למנהל. */
 async function loadCurrentUser() {
     const response = await fetch('/api/auth/me');
 
@@ -113,6 +119,7 @@ async function loadCurrentUser() {
     }
 }
 
+/** מעבירה את טופס התוכן למצב עריכה וממלאת אותו בנתוני הכרטיס שנבחר. */
 function startEditing(content) {
     editingContentId = content._id;
     document.getElementById('title').value = content.title;
@@ -131,6 +138,7 @@ function startEditing(content) {
     contentForm.scrollIntoView({ behavior: 'smooth' });
 }
 
+/** מסיימת מצב עריכה, מאפסת את הטופס ומחזירה אותו למצב הוספה. */
 function stopEditing() {
     editingContentId = null;
     contentForm.reset();
@@ -139,8 +147,10 @@ function stopEditing() {
     cancelEditButton.hidden = true;
 }
 
+// ביטול מחזיר את טופס התוכן למצב הוספה.
 cancelEditButton.addEventListener('click', stopEditing);
 
+// שליחת טופס החיפוש טוענת תכנים לפי שם ללא רענון הדף.
 searchForm.addEventListener('submit', event => {
     event.preventDefault();
     const title = searchTitle.value.trim();
@@ -150,11 +160,13 @@ searchForm.addEventListener('submit', event => {
     }
 });
 
+// ניקוי החיפוש מחזיר את כל תכני הקטלוג.
 clearSearchButton.addEventListener('click', () => {
     searchForm.reset();
     loadContents();
 });
 
+// אותו טופס שולח POST בהוספה או PUT כאשר קיים id לעריכה.
 contentForm.addEventListener('submit', async event => {
     event.preventDefault();
 

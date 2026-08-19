@@ -1,7 +1,9 @@
+// Controller של תכנים: CRUD, חיפושים ופעולות Aggregation עבור סרטים וסדרות.
 const Content = require('../models/Content');
 const WatchHistory = require('../models/WatchHistory');
 const Review = require('../models/Review');
 
+/** מחזירה את כל הסרטים והסדרות הקיימים במסד הנתונים. */
 async function getAllContents(req, res) {
     try {
         const contents = await Content.find();
@@ -11,6 +13,7 @@ async function getAllContents(req, res) {
     }
 }
 
+/** מחפשת תכנים לפי חלק משם הכותרת, ללא תלות באותיות גדולות וקטנות. */
 async function searchContents(req, res) {
     try {
         if (!req.query.title) {
@@ -27,6 +30,7 @@ async function searchContents(req, res) {
     }
 }
 
+/** מחפשת לפי שלושה פרמטרים: קטגוריה, סוג ודירוג מינימלי. */
 async function advancedSearch(req, res) {
     try {
         const { category, type, minRating } = req.query;
@@ -47,6 +51,7 @@ async function advancedSearch(req, res) {
     }
 }
 
+/** מחפשת לפי חלק מהכותרת וטווח שנים הכולל שנת התחלה ושנת סיום. */
 async function searchByYear(req, res) {
     try {
         const { title, fromYear, toYear } = req.query;
@@ -69,6 +74,7 @@ async function searchByYear(req, res) {
     }
 }
 
+/** מבצעת Aggregation שמקבץ תכנים לפי קטגוריה ומחשב כמות ודירוג ממוצע. */
 async function getCategoryStats(req, res) {
     try {
         const stats = await Content.aggregate([
@@ -88,6 +94,7 @@ async function getCategoryStats(req, res) {
     }
 }
 
+/** מבצעת Aggregation שמקבץ תכנים לפי movie או series ומחשב נתונים מסכמים. */
 async function getTypeStats(req, res) {
     try {
         const stats = await Content.aggregate([
@@ -107,6 +114,7 @@ async function getTypeStats(req, res) {
     }
 }
 
+/** יוצרת תוכן חדש מהנתונים שב-body ומפעילה את בדיקות ה-Model. */
 async function createContent(req, res) {
     try {
         const content = new Content(req.body);
@@ -117,6 +125,7 @@ async function createContent(req, res) {
     }
 }
 
+/** מעדכנת תוכן לפי id ומחזירה את הרשומה החדשה לאחר Validation. */
 async function updateContent(req, res) {
     try {
         const content = await Content.findByIdAndUpdate(
@@ -135,6 +144,7 @@ async function updateContent(req, res) {
     }
 }
 
+/** מוחקת תוכן וגם מנקה רשומות היסטוריה וביקורות שמפנות אליו. */
 async function deleteContent(req, res) {
     try {
         const content = await Content.findByIdAndDelete(req.params.id);

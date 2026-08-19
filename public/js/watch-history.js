@@ -1,3 +1,4 @@
+// קוד מסך היסטוריית הצפייה: טוען אפשרויות ומנהל רשומות צפייה של המשתמש.
 const historyList = document.getElementById('history-list');
 const historyMessage = document.getElementById('history-message');
 const historyForm = document.getElementById('history-form');
@@ -7,6 +8,7 @@ const cancelHistoryEdit = document.getElementById('cancel-history-edit');
 const historySearchForm = document.getElementById('history-search-form');
 let editingHistoryId = null;
 
+/** טוענת במקביל פרופילים ותכנים וממלאת את רשימות הבחירה בטפסים. */
 async function loadOptions() {
     const [profilesResponse, contentsResponse] = await Promise.all([
         fetch('/api/profiles'),
@@ -33,6 +35,7 @@ async function loadOptions() {
     });
 }
 
+/** טוענת היסטוריה מהשרת ובונה כרטיסי צפייה עם פעולות עריכה ומחיקה. */
 async function loadHistory(url = '/api/watch-history') {
     try {
         historyList.innerHTML = '';
@@ -72,11 +75,13 @@ async function loadHistory(url = '/api/watch-history') {
             const editButton = document.createElement('button');
             editButton.className = 'edit-button';
             editButton.textContent = 'עריכה';
+            // לחיצה על עריכה מעבירה את הרשומה שנבחרה אל טופס העריכה.
             editButton.addEventListener('click', () => startHistoryEdit(item));
 
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'מחיקה';
+            // לחיצה על מחיקה מעבירה את מזהה הרשומה לפונקציית המחיקה.
             deleteButton.addEventListener('click', () => deleteHistory(item._id));
 
             card.append(title, profile, progress, status, editButton, deleteButton);
@@ -87,6 +92,7 @@ async function loadHistory(url = '/api/watch-history') {
     }
 }
 
+/** קוראת את שדות הטופס ומחזירה אובייקט רשומת צפייה לשליחה לשרת. */
 function getHistoryData() {
     return {
         profileId: document.getElementById('history-profile').value,
@@ -96,6 +102,7 @@ function getHistoryData() {
     };
 }
 
+/** ממלאת את הטופס ברשומת צפייה קיימת ומפעילה מצב עריכה. */
 function startHistoryEdit(item) {
     editingHistoryId = item._id;
     document.getElementById('history-profile').value = item.profile._id;
@@ -108,6 +115,7 @@ function startHistoryEdit(item) {
     historyForm.scrollIntoView({ behavior: 'smooth' });
 }
 
+/** מאפסת את הטופס ומחזירה את מסך ההיסטוריה למצב הוספה. */
 function stopHistoryEdit() {
     editingHistoryId = null;
     historyForm.reset();
@@ -116,6 +124,7 @@ function stopHistoryEdit() {
     cancelHistoryEdit.hidden = true;
 }
 
+/** מבקשת אישור ומוחקת רשומת צפייה השייכת למשתמש. */
 async function deleteHistory(historyId) {
     if (!confirm('האם למחוק את רשומת הצפייה?')) {
         return;
@@ -137,6 +146,7 @@ async function deleteHistory(historyId) {
     }
 }
 
+// שליחת הטופס יוצרת רשומה חדשה או מעדכנת רשומה קיימת.
 historyForm.addEventListener('submit', async event => {
     event.preventDefault();
 
@@ -168,8 +178,10 @@ historyForm.addEventListener('submit', async event => {
     }
 });
 
+// ביטול עריכה מחזיר את הטופס למצב הוספה.
 cancelHistoryEdit.addEventListener('click', stopHistoryEdit);
 
+// חיפוש ההיסטוריה מסנן רשומות לפי הפרופיל שנבחר.
 historySearchForm.addEventListener('submit', event => {
     event.preventDefault();
     const profileId = document.getElementById('history-search-profile').value;
@@ -179,11 +191,13 @@ historySearchForm.addEventListener('submit', event => {
     }
 });
 
+// ניקוי החיפוש מחזיר את כל רשומות הצפייה.
 document.getElementById('clear-history-search').addEventListener('click', () => {
     historySearchForm.reset();
     loadHistory();
 });
 
+// האתחול ממלא תחילה את אפשרויות הטפסים ורק אחר כך טוען היסטוריה.
 loadOptions()
     .then(loadHistory)
     .catch(() => {

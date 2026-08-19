@@ -1,8 +1,12 @@
+// קוד גרפי D3: טוען נתוני Aggregation ומצייר גרף עמודות וגרף עוגה.
+
+/** מביאה מערך נתונים מכתובת API ומחזירה את ה-JSON לציור הגרף. */
 async function loadChartData(url) {
     const response = await fetch(url);
     return response.json();
 }
 
+/** מציירת ב-D3 גרף עמודות של מספר התכנים בכל קטגוריה. */
 async function drawCategoryChart() {
     const data = await loadChartData('/api/contents/stats/by-category');
     const width = 700;
@@ -45,6 +49,7 @@ async function drawCategoryChart() {
         .attr('fill', '#e50914');
 }
 
+/** מציירת ב-D3 גרף עוגה שמשווה בין מספר הסרטים למספר הסדרות. */
 async function drawTypeChart() {
     const data = await loadChartData('/api/contents/stats/by-type');
     const width = 420;
@@ -76,5 +81,6 @@ async function drawTypeChart() {
         .text(item => `${item.data._id}: ${item.data.count}`);
 }
 
+// שתי הפונקציות מופעלות עם טעינת הדף ומציירות את הגרפים בתוך ה-div המתאים.
 drawCategoryChart();
 drawTypeChart();

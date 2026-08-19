@@ -1,7 +1,9 @@
+// קוד מסך בחירת הפרופיל: מציג את פרופילי המשתמש ושומר את הפרופיל שנבחר בדפדפן.
 const profilePickerList = document.getElementById('profile-picker-list');
 const profilePickerMessage = document.getElementById('profile-picker-message');
 const avatarColors = ['blue-avatar', 'green-avatar', 'purple-avatar', 'red-avatar'];
 
+/** יוצרת כפתור בחירה עבור פרופיל, כולל אווטאר צבעוני ושמירת ה-id בעת לחיצה. */
 function createProfileChoice(profile, index) {
     const button = document.createElement('button');
     button.className = 'profile-choice';
@@ -16,6 +18,7 @@ function createProfileChoice(profile, index) {
     name.textContent = profile.name;
 
     button.append(avatar, name);
+    // לחיצה שומרת את הפרופיל הפעיל ומעבירה לפיד.
     button.addEventListener('click', () => {
         localStorage.setItem('selectedProfileId', profile._id);
         window.location.href = '/feed';
@@ -24,6 +27,7 @@ function createProfileChoice(profile, index) {
     return button;
 }
 
+/** טוענת את פרופילי המשתמש מהשרת ומוסיפה גם קישור ליצירת פרופיל חדש. */
 async function loadProfileChoices() {
     try {
         const response = await fetch('/api/profiles');

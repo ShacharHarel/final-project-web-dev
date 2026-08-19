@@ -1,7 +1,9 @@
+// Controller של היסטוריית צפייה: CRUD וחיפוש רשומות השייכות למשתמש המחובר.
 const WatchHistory = require('../models/WatchHistory');
 const Profile = require('../models/Profile');
 const Content = require('../models/Content');
 
+/** מחזירה את כל היסטוריית הצפייה של המשתמש עם שמות הפרופיל והתוכן. */
 async function getAllHistory(req, res) {
     try {
         const history = await WatchHistory.find({ user: req.session.userId })
@@ -15,6 +17,7 @@ async function getAllHistory(req, res) {
     }
 }
 
+/** מסננת את היסטוריית המשתמש לפי פרופיל צפייה שנבחר. */
 async function searchHistory(req, res) {
     try {
         if (!req.query.profileId) {
@@ -35,6 +38,7 @@ async function searchHistory(req, res) {
     }
 }
 
+/** מאמתת שהפרופיל שייך למשתמש ושהתוכן קיים, ואז יוצרת רשומת צפייה. */
 async function createHistory(req, res) {
     try {
         const { profileId, contentId, watchedMinutes, completed } = req.body;
@@ -67,6 +71,7 @@ async function createHistory(req, res) {
     }
 }
 
+/** מעדכנת רשומת צפייה קיימת לאחר בדיקת בעלות ותקינות הפרופיל והתוכן. */
 async function updateHistory(req, res) {
     try {
         const { profileId, contentId, watchedMinutes, completed } = req.body;
@@ -101,6 +106,7 @@ async function updateHistory(req, res) {
     }
 }
 
+/** מוחקת רשומת צפייה רק כאשר היא שייכת למשתמש המחובר. */
 async function deleteHistory(req, res) {
     try {
         const history = await WatchHistory.findOneAndDelete({

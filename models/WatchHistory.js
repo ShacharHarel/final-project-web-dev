@@ -1,3 +1,4 @@
+// Model של היסטוריית צפייה: מתעד איזה פרופיל צפה באיזה תוכן ואת מצב ההתקדמות.
 const mongoose = require('mongoose');
 
 const watchHistorySchema = new mongoose.Schema({

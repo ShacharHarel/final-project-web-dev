@@ -1,3 +1,4 @@
+// סקריפט Seed: מוסיף למסד תכני דוגמה מבלי ליצור כותרות כפולות בהרצות חוזרות.
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Content = require('../models/Content');
@@ -117,6 +118,7 @@ const sampleContents = [
     }
 ];
 
+/** מתחברת למסד, מוסיפה רק כותרות שאינן קיימות ולבסוף סוגרת את החיבור. */
 async function seedContent() {
     try {
         await mongoose.connect(process.env.MONGODB_URI);

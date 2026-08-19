@@ -1,6 +1,8 @@
+// Controller של ביקורות: CRUD וחיפוש ביקורות לפי תוכן, עם שמירה על בעלות המשתמש.
 const Review = require('../models/Review');
 const Content = require('../models/Content');
 
+/** מחזירה את כל הביקורות עם שם המשתמש וכותרת התוכן באמצעות populate. */
 async function getAllReviews(req, res) {
     try {
         const reviews = await Review.find()
@@ -14,6 +16,7 @@ async function getAllReviews(req, res) {
     }
 }
 
+/** מחזירה ביקורות ששייכות לתוכן שנבחר לפי contentId. */
 async function searchReviews(req, res) {
     try {
         if (!req.query.contentId) {
@@ -31,6 +34,7 @@ async function searchReviews(req, res) {
     }
 }
 
+/** בודקת שהתוכן קיים ויוצרת ביקורת המקושרת למשתמש המחובר. */
 async function createReview(req, res) {
     try {
         const { contentId, rating, text } = req.body;
@@ -58,6 +62,7 @@ async function createReview(req, res) {
     }
 }
 
+/** מעדכנת ביקורת רק כאשר היא שייכת למשתמש המחובר והתוכן החדש תקין. */
 async function updateReview(req, res) {
     try {
         const { contentId, rating, text } = req.body;
@@ -88,6 +93,7 @@ async function updateReview(req, res) {
     }
 }
 
+/** מוחקת ביקורת לפי id רק אם המשתמש המחובר הוא בעל הביקורת. */
 async function deleteReview(req, res) {
     try {
         const review = await Review.findOneAndDelete({

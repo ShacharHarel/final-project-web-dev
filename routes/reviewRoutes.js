@@ -1,3 +1,4 @@
+// Routes של ביקורות: CRUD וחיפוש ביקורות לפי תוכן.
 const express = require('express');
 const {
     getAllReviews,
@@ -10,7 +11,9 @@ const { requireAuth } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
+// כל פעולות הביקורות דורשות משתמש מחובר.
 router.use(requireAuth);
+// מיפוי נתיבי הרשימה, החיפוש וה-CRUD ל-Controller.
 router.get('/', getAllReviews);
 router.get('/search', searchReviews);
 router.post('/', createReview);

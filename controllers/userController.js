@@ -1,8 +1,10 @@
+// Controller של ניהול משתמשים: פעולות מנהל לחיפוש, שינוי תפקיד ומחיקת משתמש.
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const WatchHistory = require('../models/WatchHistory');
 const Review = require('../models/Review');
 
+/** מחזירה למנהל רשימת משתמשים ללא שדות הסיסמה. */
 async function getAllUsers(req, res) {
     try {
         const users = await User.find().select('username email role createdAt').sort({ username: 1 });
@@ -12,6 +14,7 @@ async function getAllUsers(req, res) {
     }
 }
 
+/** מחפשת משתמשים לפי שם משתמש או אימייל ומחזירה רק שדות בטוחים. */
 async function searchUsers(req, res) {
     try {
         if (!req.query.query) {
@@ -31,6 +34,7 @@ async function searchUsers(req, res) {
     }
 }
 
+/** משנה תפקיד בין user ל-admin ומונעת מהמנהל לשנות את תפקידו שלו. */
 async function updateUserRole(req, res) {
     try {
         if (!['user', 'admin'].includes(req.body.role)) {
@@ -57,6 +61,7 @@ async function updateUserRole(req, res) {
     }
 }
 
+/** מוחקת משתמש אחר ומנקה את הפרופילים, ההיסטוריה והביקורות השייכים לו. */
 async function deleteUser(req, res) {
     try {
         if (req.params.id === String(req.session.userId)) {

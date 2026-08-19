@@ -1,6 +1,8 @@
+// קוד מסך החיפוש המתקדם: שולח חיפושים מרובי פרמטרים ומציג נתונים מסכמים.
 const exploreResults = document.getElementById('explore-results');
 const exploreMessage = document.getElementById('explore-message');
 
+/** מנקה תוצאות קודמות ובונה כרטיס תוכן עבור כל תוצאת חיפוש. */
 function showSearchResults(contents) {
     exploreResults.innerHTML = '';
     exploreMessage.textContent = contents.length === 0 ? 'לא נמצאו תכנים.' : '';
@@ -24,6 +26,7 @@ function showSearchResults(contents) {
     });
 }
 
+/** שולחת חיפוש לכתובת שנבנתה מהטופס ומעבירה את התוצאות לתצוגה. */
 async function search(url) {
     try {
         const response = await fetch(url);
@@ -39,6 +42,7 @@ async function search(url) {
     }
 }
 
+// הטופס הראשון בונה חיפוש לפי קטגוריה, סוג ודירוג מינימלי.
 document.getElementById('advanced-search-form').addEventListener('submit', event => {
     event.preventDefault();
     const category = document.getElementById('advanced-category').value.trim();
@@ -47,6 +51,7 @@ document.getElementById('advanced-search-form').addEventListener('submit', event
     search(`/api/contents/advanced-search?category=${encodeURIComponent(category)}&type=${type}&minRating=${rating}`);
 });
 
+// הטופס השני בונה חיפוש לפי כותרת וטווח שנים.
 document.getElementById('year-search-form').addEventListener('submit', event => {
     event.preventDefault();
     const title = document.getElementById('year-title').value.trim();
@@ -55,6 +60,7 @@ document.getElementById('year-search-form').addEventListener('submit', event => 
     search(`/api/contents/year-search?title=${encodeURIComponent(title)}&fromYear=${fromYear}&toYear=${toYear}`);
 });
 
+/** טוענת נתוני Aggregation ומציגה כרטיס מסכם לכל קבוצה. */
 async function loadStats(url, elementId) {
     const response = await fetch(url);
     const stats = await response.json();

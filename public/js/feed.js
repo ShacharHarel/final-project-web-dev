@@ -1,6 +1,8 @@
+// קוד הפיד האישי: טוען נתוני פיד לפי פרופיל ובונה כרטיסי תוכן וביקורות.
 const profileSelect = document.getElementById('feed-profile');
 const feedMessage = document.getElementById('feed-message');
 
+/** יוצרת כרטיס תוכן לחיץ עם תמונה, כותרת, דירוג וטקסט נוסף אופציונלי. */
 function createContentCard(content, extraText = '') {
     const card = document.createElement('article');
     card.className = 'content-card clickable-card';
@@ -26,10 +28,12 @@ function createContentCard(content, extraText = '') {
         card.append(extra);
     }
 
+    /** מעבירה את הדפדפן לכתובת הטריילר של התוכן הנוכחי. */
     function openTrailer() {
         window.location.href = content.videoUrl;
     }
 
+    // הכרטיס מגיב ללחיצת עכבר וגם למקש Enter לצורך נגישות.
     card.addEventListener('click', openTrailer);
     card.addEventListener('keydown', event => {
         if (event.key === 'Enter') {
@@ -40,6 +44,7 @@ function createContentCard(content, extraText = '') {
     return card;
 }
 
+/** מציגה מערך תכנים בתוך אזור מסוים או הודעה כאשר המערך ריק. */
 function showContents(elementId, contents, emptyMessage) {
     const container = document.getElementById(elementId);
     container.innerHTML = '';
@@ -52,6 +57,7 @@ function showContents(elementId, contents, emptyMessage) {
     contents.forEach(content => container.appendChild(createContentCard(content)));
 }
 
+/** מציגה רשומות שלא הושלמו בשורת המשך הצפייה, כולל מספר הדקות שנצפו. */
 function showContinueWatching(history) {
     const container = document.getElementById('continue-watching');
     container.innerHTML = '';
@@ -69,6 +75,7 @@ function showContinueWatching(history) {
     });
 }
 
+/** מקבצת את כל התכנים לפי קטגוריה ויוצרת שורה נפרדת לכל קבוצה. */
 function showCategories(contents) {
     const container = document.getElementById('feed-categories');
     container.innerHTML = '';
@@ -94,6 +101,7 @@ function showCategories(contents) {
     });
 }
 
+/** מציגה את הביקורות האחרונות או הודעה מתאימה כאשר אין ביקורות. */
 function showReviews(reviews) {
     const container = document.getElementById('latest-reviews');
     container.innerHTML = '';
@@ -121,6 +129,7 @@ function showReviews(reviews) {
     });
 }
 
+/** מביאה מהשרת את הפיד של הפרופיל שנבחר ומעדכנת את כל אזורי המסך. */
 async function loadFeed() {
     if (!profileSelect.value) {
         return;
@@ -145,6 +154,7 @@ async function loadFeed() {
     }
 }
 
+/** טוענת פרופילים ל-select ומשחזרת את הפרופיל האחרון שנבחר ב-localStorage. */
 async function loadProfiles() {
     const response = await fetch('/api/profiles');
     const profiles = await response.json();
@@ -167,8 +177,10 @@ async function loadProfiles() {
     await loadFeed();
 }
 
+// החלפת פרופיל שומרת את הבחירה וטוענת פיד חדש.
 profileSelect.addEventListener('change', () => {
     localStorage.setItem('selectedProfileId', profileSelect.value);
     loadFeed();
 });
+// אתחול המסך מתחיל בטעינת פרופילי המשתמש.
 loadProfiles();

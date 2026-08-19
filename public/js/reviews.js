@@ -1,3 +1,4 @@
+// קוד מסך הביקורות: טוען משתמש ותכנים ומאפשר חיפוש ו-CRUD בביקורות.
 const reviewList = document.getElementById('review-list');
 const reviewMessage = document.getElementById('review-message');
 const reviewForm = document.getElementById('review-form');
@@ -8,6 +9,7 @@ const reviewSearchForm = document.getElementById('review-search-form');
 let editingReviewId = null;
 let currentUserId = null;
 
+/** טוענת במקביל את המשתמש והתכנים כדי להכין את טפסי הביקורות. */
 async function loadPageData() {
     const [userResponse, contentsResponse] = await Promise.all([
         fetch('/api/auth/me'),
@@ -30,6 +32,7 @@ async function loadPageData() {
     });
 }
 
+/** טוענת ביקורות ובונה כרטיסים; פעולות שינוי מוצגות רק לבעל הביקורת. */
 async function loadReviews(url = '/api/reviews') {
     try {
         reviewList.innerHTML = '';
@@ -72,11 +75,13 @@ async function loadReviews(url = '/api/reviews') {
                 const editButton = document.createElement('button');
                 editButton.className = 'edit-button';
                 editButton.textContent = 'עריכה';
+                // לחיצה על עריכה ממלאת את הטופס בפרטי הביקורת.
                 editButton.addEventListener('click', () => startReviewEdit(review));
 
                 const deleteButton = document.createElement('button');
                 deleteButton.className = 'delete-button';
                 deleteButton.textContent = 'מחיקה';
+                // לחיצה על מחיקה מעבירה את מזהה הביקורת לפונקציית המחיקה.
                 deleteButton.addEventListener('click', () => deleteReview(review._id));
 
                 card.append(editButton, deleteButton);
@@ -89,6 +94,7 @@ async function loadReviews(url = '/api/reviews') {
     }
 }
 
+/** קוראת את שדות הטופס ומחזירה נתוני ביקורת מוכנים ל-API. */
 function getReviewData() {
     return {
         contentId: document.getElementById('review-content').value,
@@ -97,6 +103,7 @@ function getReviewData() {
     };
 }
 
+/** ממלאת את הטופס בביקורת קיימת ומעבירה אותו למצב עריכה. */
 function startReviewEdit(review) {
     editingReviewId = review._id;
     document.getElementById('review-content').value = review.content._id;
@@ -108,6 +115,7 @@ function startReviewEdit(review) {
     reviewForm.scrollIntoView({ behavior: 'smooth' });
 }
 
+/** מסיימת עריכה, מאפסת את הטופס ומחזירה אותו למצב הוספה. */
 function stopReviewEdit() {
     editingReviewId = null;
     reviewForm.reset();
@@ -116,6 +124,7 @@ function stopReviewEdit() {
     cancelReviewEdit.hidden = true;
 }
 
+/** מבקשת אישור ומוחקת ביקורת של המשתמש דרך ה-API. */
 async function deleteReview(reviewId) {
     if (!confirm('האם למחוק את התגובה?')) {
         return;
@@ -137,6 +146,7 @@ async function deleteReview(reviewId) {
     }
 }
 
+// שליחת הטופס יוצרת ביקורת או מעדכנת ביקורת קיימת.
 reviewForm.addEventListener('submit', async event => {
     event.preventDefault();
 
@@ -166,8 +176,10 @@ reviewForm.addEventListener('submit', async event => {
     }
 });
 
+// ביטול עריכה מחזיר את הטופס למצב הוספה.
 cancelReviewEdit.addEventListener('click', stopReviewEdit);
 
+// חיפוש הביקורות מסנן לפי התוכן שנבחר.
 reviewSearchForm.addEventListener('submit', event => {
     event.preventDefault();
     const contentId = document.getElementById('review-search-content').value;
@@ -177,11 +189,13 @@ reviewSearchForm.addEventListener('submit', event => {
     }
 });
 
+// ניקוי החיפוש מחזיר את כל הביקורות.
 document.getElementById('clear-review-search').addEventListener('click', () => {
     reviewSearchForm.reset();
     loadReviews();
 });
 
+// האתחול טוען משתמש ותכנים לפני טעינת הביקורות.
 loadPageData()
     .then(loadReviews)
     .catch(() => {
